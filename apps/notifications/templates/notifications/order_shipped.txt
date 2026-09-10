@@ -1,0 +1,11 @@
+Order Dispatched - Bharath Masala Products
+
+Dear {{ customer_name }},
+
+Your order #{{ order.order_number }} has been shipped via {{ courier_name|default:"Express Courier" }}.
+Tracking / AWB: {{ awb_number|default:"Available shortly" }}
+{% if tracking_url %}Tracking Link: {{ tracking_url }}{% endif %}
+
+Delivery to: {{ shipping_address }}
+
+Bharath Masala Products, Thirthahalli.

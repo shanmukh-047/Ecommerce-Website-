@@ -1,0 +1,7 @@
+Reverse Pickup Scheduled - Bharath Masala Products
+
+Dear {{ customer_name }},
+
+A reverse pickup has been scheduled for your return request on order #{{ order_number }}. Please keep the package ready.
+
+Bharath Masala Products, Thirthahalli.

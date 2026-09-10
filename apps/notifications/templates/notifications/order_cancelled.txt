@@ -1,0 +1,10 @@
+Order Cancelled - Bharath Masala Products
+
+Dear {{ customer_name }},
+
+Your order #{{ order.order_number }} has been cancelled.
+{% if cancellation_reason %}Reason: {{ cancellation_reason }}{% endif %}
+
+If any payment was captured, refund will be credited to your original payment method.
+
+Bharath Masala Products, Thirthahalli.

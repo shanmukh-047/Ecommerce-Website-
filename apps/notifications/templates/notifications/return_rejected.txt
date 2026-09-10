@@ -1,0 +1,7 @@
+Return Request Update - Bharath Masala Products
+
+Dear {{ customer_name }},
+
+Your return request for order #{{ order_number }} could not be approved. Please check your order details for more information.
+
+Bharath Masala Products, Thirthahalli.

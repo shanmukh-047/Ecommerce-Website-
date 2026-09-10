@@ -1,0 +1,9 @@
+Credit Note Issued - Bharath Masala Products
+
+Dear {{ customer_name }},
+
+A statutory GST Credit Note has been issued for your order #{{ order.order_number }}.
+
+You can download the credit note PDF from your order details at any time.
+
+Bharath Masala Products, Thirthahalli.

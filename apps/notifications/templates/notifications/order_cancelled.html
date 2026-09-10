@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; color: #1e293b; padding: 20px; }
+        .card { max-width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 30px; }
+        .header { border-bottom: 2px solid #881337; padding-bottom: 12px; margin-bottom: 20px; }
+        .title { color: #881337; font-size: 20px; font-weight: 700; }
+        .cancel-box { background-color: #fff1f2; border: 1px solid #fecdd3; border-radius: 6px; padding: 15px; margin: 20px 0; color: #9f1239; }
+        .footer { margin-top: 25px; font-size: 12px; color: #64748b; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <div class="title">Bharath Masala Products</div>
+        </div>
+        <h2>Order Cancelled</h2>
+        <p>Dear {{ customer_name }},</p>
+        <div class="cancel-box">
+            Your order <strong>#{{ order.order_number }}</strong> has been cancelled.
+            {% if cancellation_reason %}
+            <br>Reason: {{ cancellation_reason }}
+            {% endif %}
+        </div>
+        <p>If you made a payment, your refund will be processed to your original payment method in 5-7 business days.</p>
+        <div class="footer">
+            If you have questions, please reach out to our customer support.<br>
+            Bharath Masala Products, Thirthahalli.
+        </div>
+    </div>
+</body>
+</html>

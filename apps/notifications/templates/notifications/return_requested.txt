@@ -1,0 +1,7 @@
+Return Request Received - Bharath Masala Products
+
+Dear {{ customer_name }},
+
+We have received your return request for order #{{ order_number }}. Our team is reviewing the claim and will update you shortly.
+
+Bharath Masala Products, Thirthahalli.

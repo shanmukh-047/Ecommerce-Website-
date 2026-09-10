@@ -1,0 +1,11 @@
+Order Confirmed - Bharath Masala Products
+
+Dear {{ customer_name }},
+
+Thank you for your order #{{ order.order_number }}!
+Your payment has been received and your items are being prepared.
+
+Order Total: Rs. {{ order.grand_total }}
+Shipping Address: {{ shipping_address }}
+
+Bharath Masala Products, Thirthahalli.

@@ -1,0 +1,4294 @@
+openapi: 3.0.3
+info:
+  title: Bharath Masala API
+  version: 1.0.0
+  description: Production-ready API contract for e-commerce backend
+paths:
+  /api/v1/auth/addresses/:
+    get:
+      operationId: auth_addresses_retrieve
+      description: List or create saved addresses for the authenticated user.
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: auth_addresses_create
+      description: List or create saved addresses for the authenticated user.
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/auth/addresses/{id}/:
+    get:
+      operationId: auth_addresses_retrieve_2
+      description: Retrieve, update, or delete a specific address belonging to the
+        user.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: auth_addresses_partial_update
+      description: Retrieve, update, or delete a specific address belonging to the
+        user.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: auth_addresses_destroy
+      description: Retrieve, update, or delete a specific address belonging to the
+        user.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/auth/addresses/{id}/set-default/:
+    post:
+      operationId: auth_addresses_set_default_create
+      description: Set an address as default shipping or billing.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/auth/login/:
+    post:
+      operationId: auth_login_create
+      description: Authentication endpoint returning Access Token and setting HttpOnly
+        Refresh Cookie.
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/v1/auth/logout/:
+    post:
+      operationId: auth_logout_create
+      description: Logout endpoint. Blacklists the submitted refresh token and clears
+        the HttpOnly cookie.
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/v1/auth/me/:
+    get:
+      operationId: auth_me_retrieve
+      description: Endpoint for retrieving and updating the authenticated user's profile.
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: auth_me_partial_update
+      description: Endpoint for retrieving and updating the authenticated user's profile.
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/auth/register/:
+    post:
+      operationId: auth_register_create
+      description: Retail customer registration endpoint.
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/v1/auth/register/wholesale/:
+    post:
+      operationId: auth_register_wholesale_create
+      description: B2B Wholesale customer application endpoint.
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/v1/auth/token/refresh/:
+    post:
+      operationId: auth_token_refresh_create
+      description: |-
+        Token refresh endpoint. Reads refresh token from HttpOnly cookie (or body fallback),
+        rotates the token, blacklists the old one, and returns a new Access Token.
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/v1/cart/:
+    get:
+      operationId: cart_retrieve
+      tags:
+      - cart
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: cart_destroy
+      tags:
+      - cart
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/cart/coupon/:
+    post:
+      operationId: cart_coupon_create
+      description: Applies or removes a promotional coupon code on the active customer/guest
+        cart.
+      tags:
+      - cart
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: cart_coupon_destroy
+      description: Applies or removes a promotional coupon code on the active customer/guest
+        cart.
+      tags:
+      - cart
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/cart/coupon/remove/:
+    delete:
+      operationId: cart_coupon_remove_destroy
+      description: Removes any applied coupon code from the active cart.
+      tags:
+      - cart
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/cart/items/:
+    post:
+      operationId: cart_items_create
+      tags:
+      - cart
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/v1/cart/items/{id}/:
+    patch:
+      operationId: cart_items_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - cart
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: cart_items_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - cart
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/catalog/categories/:
+    get:
+      operationId: catalog_categories_retrieve
+      description: |-
+        Public listing of active categories and subcategories
+        organized by display sort order.
+      tags:
+      - catalog
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/v1/catalog/categories/{slug}/:
+    get:
+      operationId: catalog_categories_retrieve_2
+      description: Public retrieval of category details and its direct children by
+        slug.
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - catalog
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/v1/catalog/products/:
+    get:
+      operationId: catalog_products_retrieve
+      description: |-
+        Public product catalog listing endpoint.
+        Supports filtering by category, tier, form, origin, featured flag, bestseller flag,
+        full-text substring search, and price/recency ordering.
+      tags:
+      - catalog
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/v1/catalog/products/{slug}/:
+    get:
+      operationId: catalog_products_retrieve_2
+      description: |-
+        Public product detail view retrieving complete information by slug.
+        Exposes pack-size variants, legal metrology, terroir notes,
+        and login-gated wholesale slab pricing for approved B2B buyers.
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - catalog
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/v1/catalog/products/{slug}/reviews/:
+    get:
+      operationId: catalog_products_reviews_retrieve
+      description: |-
+        Product reviews endpoint:
+        - GET: Public list of approved reviews for the given product slug (paginated).
+        - POST: Authenticated review submission (auto-queued for administrative moderation).
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - catalog
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: catalog_products_reviews_create
+      description: |-
+        Product reviews endpoint:
+        - GET: Public list of approved reviews for the given product slug (paginated).
+        - POST: Authenticated review submission (auto-queued for administrative moderation).
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - catalog
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/inventory/:
+    get:
+      operationId: inventory_retrieve
+      tags:
+      - inventory
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/inventory/{id}/:
+    get:
+      operationId: inventory_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - inventory
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/inventory/{id}/adjust/:
+    post:
+      operationId: inventory_adjust_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - inventory
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/inventory/restock/:
+    post:
+      operationId: inventory_restock_create
+      tags:
+      - inventory
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/orders/:
+    get:
+      operationId: orders_retrieve
+      description: |-
+        Lists authenticated customer's historical orders, ordered newest first.
+        Strictly isolated to user=request.user to eliminate IDOR.
+      tags:
+      - orders
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/orders/{order_id}/credit-notes/:
+    get:
+      operationId: orders_credit_notes_retrieve
+      description: |-
+        GET /api/v1/orders/<order_id>/credit-notes/
+        Lists all statutory credit notes issued for the customer's order.
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - orders
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/orders/{order_id}/credit-notes/{id}/download/:
+    get:
+      operationId: orders_credit_notes_download_retrieve
+      description: |-
+        GET /api/v1/orders/<order_id>/credit-notes/<uuid:id>/download/
+        Downloads the compiled PDF document for a statutory tax credit note.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: order_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - orders
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/orders/{order_id}/invoice/:
+    get:
+      operationId: orders_invoice_retrieve
+      description: |-
+        GET /api/v1/orders/<order_id>/invoice/
+        Retrieves JSON metadata and tax breakdown for an order's statutory tax invoice.
+        Auto-generates invoice if order is in eligible state and invoice not yet created.
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - orders
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/orders/{order_id}/invoice/download/:
+    get:
+      operationId: orders_invoice_download_retrieve
+      description: |-
+        GET /api/v1/orders/<order_id>/invoice/download/
+        Downloads the compiled PDF file for the order's tax invoice.
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - orders
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/orders/{order_id}/invoice/html/:
+    get:
+      operationId: orders_invoice_html_retrieve
+      description: |-
+        GET /api/v1/orders/<order_id>/invoice/html/
+        Renders printable HTML view of the statutory GST invoice.
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - orders
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/orders/{order_id}/returns/:
+    get:
+      operationId: orders_returns_list
+      description: |-
+        GET, POST /api/v1/orders/<order_id>/returns/
+        Allows authenticated customers to view and submit return requests for delivered orders.
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - orders
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedReturnRequestListList'
+          description: ''
+    post:
+      operationId: orders_returns_create
+      description: |-
+        GET, POST /api/v1/orders/<order_id>/returns/
+        Allows authenticated customers to view and submit return requests for delivered orders.
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - orders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReturnRequestCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReturnRequestCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReturnRequestCreateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReturnRequestCreate'
+          description: ''
+  /api/v1/orders/{order_id}/returns/{id}/:
+    get:
+      operationId: orders_returns_retrieve
+      description: |-
+        GET /api/v1/orders/<order_id>/returns/<id>/
+        Retrieves full details of a specific return request, including reverse logistics and inspection.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: order_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - orders
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReturnRequestDetail'
+          description: ''
+  /api/v1/orders/{order_id}/returns/{id}/cancel/:
+    post:
+      operationId: orders_returns_cancel_create
+      description: |-
+        POST /api/v1/orders/<order_id>/returns/<id>/cancel/
+        Allows customer to cancel a return request prior to reverse courier pickup.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: order_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - orders
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReturnRequestDetail'
+          description: ''
+  /api/v1/orders/{id}/:
+    get:
+      operationId: orders_retrieve_2
+      description: |-
+        Retrieves full details of a customer's specific order.
+        Strictly isolated to user=request.user.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - orders
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/orders/{id}/cancel/:
+    post:
+      operationId: orders_cancel_create
+      description: |-
+        Allows customers to cancel orders that are in PENDING_PAYMENT status.
+        Releases active inventory reservations.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - orders
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/orders/checkout/:
+    post:
+      operationId: orders_checkout_create
+      description: |-
+        Executes atomic checkout from customer's current cart.
+        Authoritatively reprices, snapshots address and line items,
+        and reserves stock through InventoryService.
+      tags:
+      - orders
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/payments/orders/{order_id}/:
+    get:
+      operationId: payments_orders_retrieve
+      description: |-
+        Customer endpoint retrieving payment status and attempt history for their order.
+        Strictly isolated to user=request.user.
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - payments
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/payments/orders/{order_id}/initiate/:
+    post:
+      operationId: payments_orders_initiate_create
+      description: |-
+        Customer endpoint to initiate payment for an order in PENDING_PAYMENT status.
+        Generates a gateway order and returns client checkout keys and options.
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - payments
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/payments/orders/{order_id}/verify/:
+    post:
+      operationId: payments_orders_verify_create
+      description: |-
+        Customer endpoint to verify the HMAC-SHA256 signature returned by the gateway modal.
+        Atomically transitions the order to CONFIRMED, consumes stock reservations,
+        and marks payment CAPTURED.
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - payments
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/payments/webhooks/razorpay/:
+    post:
+      operationId: payments_webhooks_razorpay_create
+      description: |-
+        Public ingress point for Razorpay asynchronous server-to-server notifications.
+        CSRF-exempt and validated cryptographically using the webhook signature header.
+      tags:
+      - payments
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/v1/shipping/{shipment_number}/:
+    get:
+      operationId: shipping_retrieve
+      description: |-
+        Retrieves full details of a specific consignment belonging to the authenticated customer.
+        Enforces strict ownership check (order__user=request.user).
+      parameters:
+      - in: path
+        name: shipment_number
+        schema:
+          type: string
+        required: true
+      tags:
+      - shipping
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/shipping/orders/{order_id}/tracking/:
+    get:
+      operationId: shipping_orders_tracking_retrieve
+      description: |-
+        Retrieves all shipments and tracking milestones for an authenticated customer's order.
+        Strictly isolated to user=request.user to eliminate IDOR vulnerabilities.
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - shipping
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/shipping/track/:
+    get:
+      operationId: shipping_track_retrieve
+      description: |-
+        Public milestone tracking endpoint for carrier tracking links (SMS/Email).
+        Requires zero authentication, but strictly redacts all customer PII,
+        financial data, and item breakdown.
+      tags:
+      - shipping
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/catalog/reviews/{id}/moderate/:
+    post:
+      operationId: staff_catalog_reviews_moderate_create
+      description: |-
+        Staff / Operations Manager review moderation endpoint.
+        Allows approving or rejecting customer-submitted product reviews.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/invoices/:
+    get:
+      operationId: staff_invoices_list
+      description: |-
+        GET /api/v1/staff/invoices/
+        Lists all generated tax invoices with filtering by invoice_number, date range,
+        place of supply, and B2B status.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedInvoiceList'
+          description: ''
+  /api/v1/staff/invoices/{id}/:
+    get:
+      operationId: staff_invoices_retrieve
+      description: |-
+        GET /api/v1/staff/invoices/<uuid:id>/
+        Retrieves full invoice details including statutory tax breakdown and line items.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+          description: ''
+  /api/v1/staff/invoices/{id}/regenerate-pdf/:
+    post:
+      operationId: staff_invoices_regenerate_pdf_create
+      description: |-
+        POST /api/v1/staff/invoices/<uuid:id>/regenerate-pdf/
+        Regenerates the statutory PDF document for the invoice.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/invoices/credit-notes/:
+    get:
+      operationId: staff_invoices_credit_notes_list
+      description: |-
+        GET /api/v1/staff/invoices/credit-notes/
+        Lists all statutory GST credit notes with filtering.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCreditNoteList'
+          description: ''
+  /api/v1/staff/invoices/credit-notes/{id}/:
+    get:
+      operationId: staff_invoices_credit_notes_retrieve
+      description: |-
+        GET /api/v1/staff/invoices/credit-notes/<uuid:id>/
+        Retrieves full details of a single statutory credit note.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditNote'
+          description: ''
+  /api/v1/staff/invoices/credit-notes/{id}/regenerate-pdf/:
+    post:
+      operationId: staff_invoices_credit_notes_regenerate_pdf_create
+      description: |-
+        POST /api/v1/staff/invoices/credit-notes/<uuid:id>/regenerate-pdf/
+        Regenerates the statutory PDF document for the credit note.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/notifications/:
+    get:
+      operationId: staff_notifications_list
+      description: |-
+        GET /api/v1/staff/notifications/
+        Lists notification logs with filtering by channel, event, status, and order.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedNotificationLogList'
+          description: ''
+  /api/v1/staff/notifications/{id}/:
+    get:
+      operationId: staff_notifications_retrieve
+      description: |-
+        GET /api/v1/staff/notifications/<uuid:id>/
+        Retrieves full details of a specific communication log.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationLog'
+          description: ''
+  /api/v1/staff/notifications/{id}/resend/:
+    post:
+      operationId: staff_notifications_resend_create
+      description: |-
+        POST /api/v1/staff/notifications/<uuid:id>/resend/
+        Re-dispatches a notification log across its transport adapter.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/orders/:
+    get:
+      operationId: staff_orders_retrieve
+      description: Staff management endpoint to list, filter, and search all customer
+        orders.
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/orders/{id}/:
+    get:
+      operationId: staff_orders_retrieve_2
+      description: Staff detail view providing complete audit view of any order.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/orders/{id}/status/:
+    post:
+      operationId: staff_orders_status_create
+      description: Staff endpoint to transition order status through the FSM state
+        machine.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/payments/:
+    get:
+      operationId: staff_payments_retrieve
+      description: Staff management endpoint to list, filter, and inspect customer
+        transactions.
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/payments/{payment_id}/:
+    get:
+      operationId: staff_payments_retrieve_2
+      description: |-
+        Staff detail endpoint providing full audit log of a payment session, attempts,
+        and associated gateway webhooks.
+      parameters:
+      - in: path
+        name: payment_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/payments/{payment_id}/refund/:
+    post:
+      operationId: staff_payments_refund_create
+      description: |-
+        POST /api/v1/staff/payments/<uuid:payment_id>/refund/
+        Initiates a gateway refund for a captured payment. Restricted to Managers and Admins.
+      parameters:
+      - in: path
+        name: payment_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/promotions/coupons/:
+    get:
+      operationId: staff_promotions_coupons_list
+      description: Staff endpoint to list and create discount coupons.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedStaffCouponList'
+          description: ''
+    post:
+      operationId: staff_promotions_coupons_create
+      description: Staff endpoint to list and create discount coupons.
+      tags:
+      - staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StaffCouponRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StaffCouponRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StaffCouponRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffCoupon'
+          description: ''
+  /api/v1/staff/promotions/coupons/{id}/:
+    get:
+      operationId: staff_promotions_coupons_retrieve
+      description: Staff endpoint to view, update, or delete a specific coupon.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffCoupon'
+          description: ''
+    put:
+      operationId: staff_promotions_coupons_update
+      description: Staff endpoint to view, update, or delete a specific coupon.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StaffCouponRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StaffCouponRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StaffCouponRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffCoupon'
+          description: ''
+    patch:
+      operationId: staff_promotions_coupons_partial_update
+      description: Staff endpoint to view, update, or delete a specific coupon.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStaffCouponRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStaffCouponRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStaffCouponRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffCoupon'
+          description: ''
+    delete:
+      operationId: staff_promotions_coupons_destroy
+      description: Staff endpoint to view, update, or delete a specific coupon.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/staff/promotions/coupons/{id}/toggle/:
+    post:
+      operationId: staff_promotions_coupons_toggle_create
+      description: Staff endpoint to quickly activate or deactivate a coupon.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/promotions/promotions/:
+    get:
+      operationId: staff_promotions_promotions_list
+      description: Staff endpoint to list and create automatic promotions.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedStaffPromotionList'
+          description: ''
+    post:
+      operationId: staff_promotions_promotions_create
+      description: Staff endpoint to list and create automatic promotions.
+      tags:
+      - staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StaffPromotionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StaffPromotionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StaffPromotionRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffPromotion'
+          description: ''
+  /api/v1/staff/promotions/promotions/{id}/:
+    get:
+      operationId: staff_promotions_promotions_retrieve
+      description: Staff endpoint to view, update, or delete an automatic promotion.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffPromotion'
+          description: ''
+    put:
+      operationId: staff_promotions_promotions_update
+      description: Staff endpoint to view, update, or delete an automatic promotion.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StaffPromotionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StaffPromotionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StaffPromotionRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffPromotion'
+          description: ''
+    patch:
+      operationId: staff_promotions_promotions_partial_update
+      description: Staff endpoint to view, update, or delete an automatic promotion.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStaffPromotionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStaffPromotionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStaffPromotionRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffPromotion'
+          description: ''
+    delete:
+      operationId: staff_promotions_promotions_destroy
+      description: Staff endpoint to view, update, or delete an automatic promotion.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/staff/returns/:
+    get:
+      operationId: staff_returns_list
+      description: |-
+        GET /api/v1/staff/returns/
+        Lists all customer return requests with filtering by status and reason.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedReturnRequestListList'
+          description: ''
+  /api/v1/staff/returns/{id}/:
+    get:
+      operationId: staff_returns_retrieve
+      description: |-
+        GET /api/v1/staff/returns/<id>/
+        Retrieves full details of a return request for staff review and processing.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReturnRequestDetail'
+          description: ''
+  /api/v1/staff/returns/{id}/complete/:
+    post:
+      operationId: staff_returns_complete_create
+      description: |-
+        POST /api/v1/staff/returns/<id>/complete/
+        Executes final resolution: REFUND (CreditNote + Gateway refund) or REPLACEMENT order.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StaffReturnCompleteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StaffReturnCompleteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StaffReturnCompleteRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffReturnComplete'
+          description: ''
+  /api/v1/staff/returns/{id}/inspection/:
+    post:
+      operationId: staff_returns_inspection_create
+      description: |-
+        POST /api/v1/staff/returns/<id>/inspection/
+        Records warehouse quality check and FSSAI inventory disposition (RESTOCK vs DISCARD).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StaffReturnInspectionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StaffReturnInspectionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StaffReturnInspectionRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffReturnInspection'
+          description: ''
+  /api/v1/staff/returns/{id}/review/:
+    post:
+      operationId: staff_returns_review_create
+      description: |-
+        POST /api/v1/staff/returns/<id>/review/
+        Allows staff to approve or reject a customer return request.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StaffReturnReviewRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StaffReturnReviewRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StaffReturnReviewRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffReturnReview'
+          description: ''
+  /api/v1/staff/returns/{id}/shipment/schedule/:
+    post:
+      operationId: staff_returns_shipment_schedule_create
+      description: |-
+        POST /api/v1/staff/returns/<id>/shipment/schedule/
+        Books reverse courier pickup and allocates reverse AWB for an approved return.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StaffReversePickupScheduleRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StaffReversePickupScheduleRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StaffReversePickupScheduleRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffReversePickupSchedule'
+          description: ''
+  /api/v1/staff/returns/{id}/shipment/status/:
+    post:
+      operationId: staff_returns_shipment_status_create
+      description: |-
+        POST /api/v1/staff/returns/<id>/shipment/status/
+        Updates reverse shipment transit milestones (OUT_FOR_PICKUP, PICKED_UP, IN_TRANSIT, DELIVERED).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StaffReverseShipmentStatusRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StaffReverseShipmentStatusRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StaffReverseShipmentStatusRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffReverseShipmentStatus'
+          description: ''
+  /api/v1/staff/shipping/:
+    get:
+      operationId: staff_shipping_retrieve
+      description: Staff management endpoint to list, filter, search, and paginate
+        shipments.
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/shipping/{shipment_id}/:
+    get:
+      operationId: staff_shipping_retrieve_2
+      description: |-
+        Staff detail view providing full audit details, packaging metrics,
+        carrier information, and tracking event history.
+      parameters:
+      - in: path
+        name: shipment_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/shipping/{shipment_id}/cancel/:
+    post:
+      operationId: staff_shipping_cancel_create
+      description: Staff endpoint to void a pre-dispatch shipment.
+      parameters:
+      - in: path
+        name: shipment_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/shipping/{shipment_id}/label/:
+    post:
+      operationId: staff_shipping_label_create
+      description: Staff endpoint to invoke carrier adapter, allocate AWB, and generate
+        shipping label.
+      parameters:
+      - in: path
+        name: shipment_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/shipping/{shipment_id}/status/:
+    post:
+      operationId: staff_shipping_status_create
+      description: Staff endpoint to advance shipment status through FSM and record
+        a tracking milestone.
+      parameters:
+      - in: path
+        name: shipment_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/shipping/orders/{order_id}/fulfillment-summary/:
+    get:
+      operationId: staff_shipping_orders_fulfillment_summary_retrieve
+      description: Staff endpoint inspecting fulfilled versus remaining unfulfilled
+        quantities per line item.
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/shipping/orders/{order_id}/shipments/:
+    post:
+      operationId: staff_shipping_orders_shipments_create
+      description: |-
+        Staff endpoint to create a new shipment for an order.
+        Supports full and partial/split fulfillment breakdowns.
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/staff/wholesale/{id}/verify/:
+    post:
+      operationId: staff_wholesale_verify_create
+      description: Staff/Manager endpoint to approve or reject a B2B wholesale profile.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - staff
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /health/liveness/:
+    get:
+      operationId: health_liveness_retrieve
+      description: |-
+        K8s / Container Liveness Probe.
+        Verifies that the web process is running and able to handle HTTP requests.
+        Explicitly does NOT touch external dependencies like the database.
+      tags:
+      - health
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /health/readiness/:
+    get:
+      operationId: health_readiness_retrieve
+      description: |-
+        K8s / Container Readiness Probe.
+        Verifies that required backing services (database) are operational
+        and ready to receive production traffic.
+      tags:
+      - health
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+components:
+  schemas:
+    ActionEnum:
+      enum:
+      - APPROVE
+      - REJECT
+      type: string
+      description: |-
+        * `APPROVE` - APPROVE
+        * `REJECT` - REJECT
+    ChannelEnum:
+      enum:
+      - EMAIL
+      - WHATSAPP
+      - SMS
+      type: string
+      description: |-
+        * `EMAIL` - Email
+        * `WHATSAPP` - WhatsApp
+        * `SMS` - SMS
+    CourierNameEnum:
+      enum:
+      - DELHIVERY
+      - BLUEDART
+      - SHIPROCKET
+      - INDIAPOST
+      - MANUAL
+      type: string
+      description: |-
+        * `DELHIVERY` - Delhivery
+        * `BLUEDART` - Blue Dart
+        * `SHIPROCKET` - Shiprocket
+        * `INDIAPOST` - India Post
+        * `MANUAL` - Manual / Internal Fleet
+    CreditNote:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        credit_note_number:
+          type: string
+          readOnly: true
+        original_invoice:
+          type: string
+          format: uuid
+          readOnly: true
+        original_invoice_number:
+          type: string
+          readOnly: true
+        order:
+          type: string
+          format: uuid
+          readOnly: true
+        order_number:
+          type: string
+          readOnly: true
+        credit_note_date:
+          type: string
+          format: date
+          readOnly: true
+        financial_year:
+          type: string
+          readOnly: true
+        reason:
+          allOf:
+          - $ref: '#/components/schemas/CreditNoteReasonEnum'
+          readOnly: true
+        reason_notes:
+          type: string
+          readOnly: true
+        seller_name:
+          type: string
+          readOnly: true
+        seller_gstin:
+          type: string
+          readOnly: true
+        seller_fssai:
+          type: string
+          readOnly: true
+        seller_address:
+          type: string
+          readOnly: true
+        seller_state:
+          allOf:
+          - $ref: '#/components/schemas/SellerStateEnum'
+          readOnly: true
+        buyer_name:
+          type: string
+          readOnly: true
+        buyer_email:
+          type: string
+          readOnly: true
+        buyer_phone:
+          type: string
+          readOnly: true
+        buyer_company_name:
+          type: string
+          readOnly: true
+        buyer_gstin:
+          type: string
+          readOnly: true
+        buyer_pan:
+          type: string
+          readOnly: true
+        shipping_address:
+          type: string
+          readOnly: true
+        place_of_supply:
+          allOf:
+          - $ref: '#/components/schemas/PlaceOfSupplyEnum'
+          readOnly: true
+        is_interstate:
+          type: boolean
+          readOnly: true
+        is_b2b:
+          type: boolean
+          readOnly: true
+        items_subtotal:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          readOnly: true
+        taxable_subtotal:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          readOnly: true
+        cgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        sgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        igst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        total_tax:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        grand_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          readOnly: true
+        pdf_generated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        download_url:
+          type: string
+          readOnly: true
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditNoteLine'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - buyer_company_name
+      - buyer_email
+      - buyer_gstin
+      - buyer_name
+      - buyer_pan
+      - buyer_phone
+      - cgst_amount
+      - created_at
+      - credit_note_date
+      - credit_note_number
+      - download_url
+      - financial_year
+      - grand_total
+      - id
+      - igst_amount
+      - is_b2b
+      - is_interstate
+      - items_subtotal
+      - lines
+      - order
+      - order_number
+      - original_invoice
+      - original_invoice_number
+      - pdf_generated_at
+      - place_of_supply
+      - reason
+      - reason_notes
+      - seller_address
+      - seller_fssai
+      - seller_gstin
+      - seller_name
+      - seller_state
+      - sgst_amount
+      - shipping_address
+      - taxable_subtotal
+      - total_tax
+      - updated_at
+    CreditNoteLine:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        product_name:
+          type: string
+          readOnly: true
+        variant_name:
+          type: string
+          readOnly: true
+        sku:
+          type: string
+          readOnly: true
+        hsn_code:
+          type: string
+          readOnly: true
+        quantity:
+          type: integer
+          readOnly: true
+        unit_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        taxable_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          readOnly: true
+        gst_rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          readOnly: true
+        cgst_rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          readOnly: true
+        cgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        sgst_rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          readOnly: true
+        sgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        igst_rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          readOnly: true
+        igst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        total_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          readOnly: true
+      required:
+      - cgst_amount
+      - cgst_rate
+      - gst_rate
+      - hsn_code
+      - id
+      - igst_amount
+      - igst_rate
+      - product_name
+      - quantity
+      - sgst_amount
+      - sgst_rate
+      - sku
+      - taxable_amount
+      - total_amount
+      - unit_price
+      - variant_name
+    CreditNoteReasonEnum:
+      enum:
+      - ORDER_CANCELLATION
+      - RETURN_TO_ORIGIN
+      - CUSTOMER_RETURN
+      - PRICE_ADJUSTMENT
+      type: string
+      description: |-
+        * `ORDER_CANCELLATION` - Order Cancelled Post-Invoicing
+        * `RETURN_TO_ORIGIN` - Courier Undelivered / Return to Origin
+        * `CUSTOMER_RETURN` - Customer Return / Defective Goods
+        * `PRICE_ADJUSTMENT` - Post-Sale Price Adjustment / Discount
+    DiscountTypeEnum:
+      enum:
+      - PERCENTAGE
+      - FIXED_AMOUNT
+      type: string
+      description: |-
+        * `PERCENTAGE` - Percentage
+        * `FIXED_AMOUNT` - Fixed Amount
+    DispositionEnum:
+      enum:
+      - RESTOCK
+      - DISCARD
+      - RETURN_TO_CUSTOMER
+      type: string
+      description: |-
+        * `RESTOCK` - Restock into Saleable Physical Inventory
+        * `DISCARD` - Write-Off / Discard as Unsaleable Scrap
+        * `RETURN_TO_CUSTOMER` - Reject & Return to Customer
+    EventEnum:
+      enum:
+      - ORDER_CONFIRMED
+      - ORDER_PROCESSING
+      - ORDER_SHIPPED
+      - ORDER_DELIVERED
+      - ORDER_CANCELLED
+      - PAYMENT_FAILED
+      - REFUND_PROCESSED
+      - CREDIT_NOTE_ISSUED
+      - RETURN_REQUESTED
+      - RETURN_APPROVED
+      - RETURN_REJECTED
+      - RETURN_PICKUP_SCHEDULED
+      - RETURN_RECEIVED
+      - RETURN_COMPLETED
+      type: string
+      description: |-
+        * `ORDER_CONFIRMED` - Order Confirmed
+        * `ORDER_PROCESSING` - Order Processing
+        * `ORDER_SHIPPED` - Order Shipped
+        * `ORDER_DELIVERED` - Order Delivered
+        * `ORDER_CANCELLED` - Order Cancelled
+        * `PAYMENT_FAILED` - Payment Failed
+        * `REFUND_PROCESSED` - Refund Processed
+        * `CREDIT_NOTE_ISSUED` - Credit Note Issued
+        * `RETURN_REQUESTED` - Return Requested
+        * `RETURN_APPROVED` - Return Approved
+        * `RETURN_REJECTED` - Return Rejected
+        * `RETURN_PICKUP_SCHEDULED` - Return Pickup Scheduled
+        * `RETURN_RECEIVED` - Return Received at Warehouse
+        * `RETURN_COMPLETED` - Return Completed
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        invoice_number:
+          type: string
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/InvoiceStatusEnum'
+          readOnly: true
+        order:
+          type: string
+          format: uuid
+          readOnly: true
+        order_number:
+          type: string
+          readOnly: true
+        invoice_date:
+          type: string
+          format: date
+          readOnly: true
+        seller_name:
+          type: string
+          readOnly: true
+        seller_gstin:
+          type: string
+          readOnly: true
+        seller_fssai:
+          type: string
+          readOnly: true
+        seller_address:
+          type: string
+          readOnly: true
+        seller_state:
+          allOf:
+          - $ref: '#/components/schemas/SellerStateEnum'
+          readOnly: true
+        buyer_name:
+          type: string
+          readOnly: true
+        buyer_email:
+          type: string
+          readOnly: true
+        buyer_phone:
+          type: string
+          readOnly: true
+        buyer_company_name:
+          type: string
+          readOnly: true
+        buyer_gstin:
+          type: string
+          readOnly: true
+        buyer_pan:
+          type: string
+          readOnly: true
+        shipping_address:
+          type: string
+          readOnly: true
+        place_of_supply:
+          allOf:
+          - $ref: '#/components/schemas/PlaceOfSupplyEnum'
+          readOnly: true
+        is_interstate:
+          type: boolean
+          readOnly: true
+        is_b2b:
+          type: boolean
+          readOnly: true
+        items_subtotal:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          readOnly: true
+        total_discount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+          description: Order-level discount deducted from invoice gross value.
+        taxable_subtotal:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          readOnly: true
+        cgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        sgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        igst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        total_tax:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        shipping_fee:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        grand_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          readOnly: true
+        payment_method:
+          type: string
+          readOnly: true
+        payment_transaction_id:
+          type: string
+          readOnly: true
+        pdf_generated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        download_url:
+          type: string
+          readOnly: true
+        html_url:
+          type: string
+          readOnly: true
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceLineItem'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - buyer_company_name
+      - buyer_email
+      - buyer_gstin
+      - buyer_name
+      - buyer_pan
+      - buyer_phone
+      - cgst_amount
+      - created_at
+      - download_url
+      - grand_total
+      - html_url
+      - id
+      - igst_amount
+      - invoice_date
+      - invoice_number
+      - is_b2b
+      - is_interstate
+      - items_subtotal
+      - lines
+      - order
+      - order_number
+      - payment_method
+      - payment_transaction_id
+      - pdf_generated_at
+      - place_of_supply
+      - seller_address
+      - seller_fssai
+      - seller_gstin
+      - seller_name
+      - seller_state
+      - sgst_amount
+      - shipping_address
+      - shipping_fee
+      - status
+      - taxable_subtotal
+      - total_discount
+      - total_tax
+      - updated_at
+    InvoiceLineItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        product_name:
+          type: string
+          readOnly: true
+        variant_name:
+          type: string
+          readOnly: true
+        sku:
+          type: string
+          readOnly: true
+        hsn_code:
+          type: string
+          readOnly: true
+        quantity:
+          type: integer
+          readOnly: true
+        unit_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+          description: Allocated discount for this line item.
+        taxable_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          readOnly: true
+        gst_rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          readOnly: true
+        cgst_rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          readOnly: true
+        cgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        sgst_rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          readOnly: true
+        sgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        igst_rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          readOnly: true
+        igst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        total_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          readOnly: true
+      required:
+      - cgst_amount
+      - cgst_rate
+      - discount_amount
+      - gst_rate
+      - hsn_code
+      - id
+      - igst_amount
+      - igst_rate
+      - product_name
+      - quantity
+      - sgst_amount
+      - sgst_rate
+      - sku
+      - taxable_amount
+      - total_amount
+      - unit_price
+      - variant_name
+    InvoiceStatusEnum:
+      enum:
+      - ACTIVE
+      - PARTIALLY_CREDIT_NOTED
+      - CREDIT_NOTED
+      - CANCELLED
+      type: string
+      description: |-
+        * `ACTIVE` - Active
+        * `PARTIALLY_CREDIT_NOTED` - Partially Credit Noted
+        * `CREDIT_NOTED` - Credit Noted
+        * `CANCELLED` - Cancelled
+    NotificationLog:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        recipient:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        recipient_email:
+          type: string
+          readOnly: true
+        recipient_target:
+          type: string
+          readOnly: true
+        channel:
+          allOf:
+          - $ref: '#/components/schemas/ChannelEnum'
+          readOnly: true
+        event:
+          allOf:
+          - $ref: '#/components/schemas/EventEnum'
+          readOnly: true
+        order:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        order_number:
+          type: string
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/NotificationLogStatusEnum'
+          readOnly: true
+        idempotency_key:
+          type: string
+          readOnly: true
+        subject:
+          type: string
+          readOnly: true
+        content:
+          type: string
+          readOnly: true
+        metadata:
+          readOnly: true
+        error_message:
+          type: string
+          readOnly: true
+        sent_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        retry_count:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - channel
+      - content
+      - created_at
+      - error_message
+      - event
+      - id
+      - idempotency_key
+      - metadata
+      - order
+      - order_number
+      - recipient
+      - recipient_email
+      - recipient_target
+      - retry_count
+      - sent_at
+      - status
+      - subject
+      - updated_at
+    NotificationLogStatusEnum:
+      enum:
+      - PENDING
+      - SENT
+      - FAILED
+      - SKIPPED
+      type: string
+      description: |-
+        * `PENDING` - Pending
+        * `SENT` - Sent
+        * `FAILED` - Failed
+        * `SKIPPED` - Skipped
+    NullEnum:
+      enum:
+      - null
+    PaginatedCreditNoteList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditNote'
+    PaginatedInvoiceList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invoice'
+    PaginatedNotificationLogList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationLog'
+    PaginatedReturnRequestListList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReturnRequestList'
+    PaginatedStaffCouponList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaffCoupon'
+    PaginatedStaffPromotionList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaffPromotion'
+    PatchedStaffCouponRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          minLength: 1
+          maxLength: 50
+        description:
+          type: string
+          maxLength: 255
+        discount_type:
+          $ref: '#/components/schemas/DiscountTypeEnum'
+        discount_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        min_order_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        max_discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        valid_from:
+          type: string
+          format: date-time
+        valid_to:
+          type: string
+          format: date-time
+        usage_limit_total:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          nullable: true
+          description: Maximum global redemptions allowed across all customers.
+        usage_limit_per_user:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          description: Maximum redemptions allowed per individual customer account.
+        is_active:
+          type: boolean
+        applicable_to_wholesale:
+          type: boolean
+          description: Whether this coupon can be combined with wholesale contract
+            pricing.
+        scope:
+          $ref: '#/components/schemas/ScopeEnum'
+        applicable_categories:
+          type: array
+          items:
+            type: string
+            format: uuid
+        applicable_variants:
+          type: array
+          items:
+            type: string
+            format: uuid
+    PatchedStaffPromotionRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type: string
+        promo_type:
+          $ref: '#/components/schemas/PromoTypeEnum'
+        discount_type:
+          $ref: '#/components/schemas/DiscountTypeEnum'
+        discount_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        min_order_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        max_discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        priority:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          description: 'Evaluation precedence: lower values evaluate first.'
+        valid_from:
+          type: string
+          format: date-time
+        valid_to:
+          type: string
+          format: date-time
+        is_active:
+          type: boolean
+        applicable_to_wholesale:
+          type: boolean
+          description: Whether this promotion applies to wholesale/B2B tier customers.
+        stackable_with_coupons:
+          type: boolean
+          description: Whether customer coupons can be combined on top of this automatic
+            promotion.
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/PromotionRuleRequest'
+    PlaceOfSupplyEnum:
+      enum:
+      - AN
+      - AP
+      - AR
+      - AS
+      - BR
+      - CH
+      - CG
+      - DN
+      - DL
+      - GA
+      - GJ
+      - HR
+      - HP
+      - JK
+      - JH
+      - KA
+      - KL
+      - LA
+      - LD
+      - MP
+      - MH
+      - MN
+      - ML
+      - MZ
+      - NL
+      - OD
+      - PY
+      - PB
+      - RJ
+      - SK
+      - TN
+      - TS
+      - TR
+      - UP
+      - UK
+      - WB
+      type: string
+      description: |-
+        * `AN` - Andaman and Nicobar Islands
+        * `AP` - Andhra Pradesh
+        * `AR` - Arunachal Pradesh
+        * `AS` - Assam
+        * `BR` - Bihar
+        * `CH` - Chandigarh
+        * `CG` - Chhattisgarh
+        * `DN` - Dadra and Nagar Haveli and Daman and Diu
+        * `DL` - Delhi
+        * `GA` - Goa
+        * `GJ` - Gujarat
+        * `HR` - Haryana
+        * `HP` - Himachal Pradesh
+        * `JK` - Jammu and Kashmir
+        * `JH` - Jharkhand
+        * `KA` - Karnataka
+        * `KL` - Kerala
+        * `LA` - Ladakh
+        * `LD` - Lakshadweep
+        * `MP` - Madhya Pradesh
+        * `MH` - Maharashtra
+        * `MN` - Manipur
+        * `ML` - Meghalaya
+        * `MZ` - Mizoram
+        * `NL` - Nagaland
+        * `OD` - Odisha
+        * `PY` - Puducherry
+        * `PB` - Punjab
+        * `RJ` - Rajasthan
+        * `SK` - Sikkim
+        * `TN` - Tamil Nadu
+        * `TS` - Telangana
+        * `TR` - Tripura
+        * `UP` - Uttar Pradesh
+        * `UK` - Uttarakhand
+        * `WB` - West Bengal
+    PromoTypeEnum:
+      enum:
+      - ORDER_DISCOUNT
+      - BUY_X_GET_Y
+      - CATEGORY_DISCOUNT
+      - FREE_SHIPPING
+      type: string
+      description: |-
+        * `ORDER_DISCOUNT` - Order Level Discount
+        * `BUY_X_GET_Y` - Buy X Get Y
+        * `CATEGORY_DISCOUNT` - Category Discount
+        * `FREE_SHIPPING` - Free Shipping
+    PromotionRule:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        target_category:
+          type: string
+          format: uuid
+          nullable: true
+        target_variant:
+          type: string
+          format: uuid
+          nullable: true
+        min_quantity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          description: Minimum required item quantity for this rule to trigger.
+      required:
+      - id
+    PromotionRuleRequest:
+      type: object
+      properties:
+        target_category:
+          type: string
+          format: uuid
+          nullable: true
+        target_variant:
+          type: string
+          format: uuid
+          nullable: true
+        min_quantity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          description: Minimum required item quantity for this rule to trigger.
+    ReasonA77Enum:
+      enum:
+      - DAMAGED_IN_TRANSIT
+      - DEFECTIVE_QUALITY
+      - WRONG_ITEM_DELIVERED
+      - TAMPERED_SEAL
+      - EXPIRED_OR_NEAR_EXPIRY
+      - MISSING_ITEMS
+      - OTHER
+      type: string
+      description: |-
+        * `DAMAGED_IN_TRANSIT` - Damaged in Transit / Crushed Packaging
+        * `DEFECTIVE_QUALITY` - Quality Defect / Moisture / Aroma Loss
+        * `WRONG_ITEM_DELIVERED` - Wrong Item / Variant Delivered
+        * `TAMPERED_SEAL` - Tampered Safety Seal / Broken Seal
+        * `EXPIRED_OR_NEAR_EXPIRY` - Expired or Close to Expiry Date
+        * `MISSING_ITEMS` - Missing Items / Shortage in Package
+        * `OTHER` - Other (Requires Staff Review)
+    ResolutionEnum:
+      enum:
+      - REFUND
+      - REPLACEMENT
+      type: string
+      description: |-
+        * `REFUND` - Monetary Refund & GST Credit Note
+        * `REPLACEMENT` - Free Replacement Shipment
+    ResultEnum:
+      enum:
+      - PASSED
+      - FAILED
+      - SCRAP_DAMAGED
+      type: string
+      description: |-
+        * `PASSED` - Passed Quality Inspection
+        * `FAILED` - Failed Quality Inspection
+        * `SCRAP_DAMAGED` - Authentic Defect / Food Safety Scrap
+    ReturnEvidence:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        file_url:
+          type: string
+          format: uri
+          maxLength: 500
+        description:
+          type: string
+          maxLength: 255
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+    ReturnEvidenceRequest:
+      type: object
+      properties:
+        file_url:
+          type: string
+          format: uri
+          maxLength: 500
+        description:
+          type: string
+          maxLength: 255
+    ReturnInspection:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        result:
+          allOf:
+          - $ref: '#/components/schemas/ResultEnum'
+          readOnly: true
+        result_display:
+          type: string
+          readOnly: true
+        disposition:
+          allOf:
+          - $ref: '#/components/schemas/DispositionEnum'
+          readOnly: true
+        disposition_display:
+          type: string
+          readOnly: true
+        quantity_passed:
+          type: integer
+          readOnly: true
+        quantity_failed:
+          type: integer
+          readOnly: true
+        notes:
+          type: string
+          readOnly: true
+        inspector_email:
+          type: string
+          readOnly: true
+        inspected_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - disposition
+      - disposition_display
+      - id
+      - inspected_at
+      - inspector_email
+      - notes
+      - quantity_failed
+      - quantity_passed
+      - result
+      - result_display
+    ReturnItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        order_line_item_id:
+          type: string
+          format: uuid
+          readOnly: true
+        product_name:
+          type: string
+          readOnly: true
+        variant_name:
+          type: string
+          readOnly: true
+        sku:
+          type: string
+          readOnly: true
+        quantity:
+          type: integer
+          readOnly: true
+        unit_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        total_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          readOnly: true
+        reason:
+          allOf:
+          - $ref: '#/components/schemas/ReasonA77Enum'
+          readOnly: true
+      required:
+      - id
+      - order_line_item_id
+      - product_name
+      - quantity
+      - reason
+      - sku
+      - total_amount
+      - unit_price
+      - variant_name
+    ReturnItemCreate:
+      type: object
+      properties:
+        order_line_item_id:
+          type: string
+          format: uuid
+        quantity:
+          type: integer
+          minimum: 1
+        reason:
+          $ref: '#/components/schemas/ReasonA77Enum'
+      required:
+      - order_line_item_id
+      - quantity
+    ReturnItemCreateRequest:
+      type: object
+      properties:
+        order_line_item_id:
+          type: string
+          format: uuid
+        quantity:
+          type: integer
+          minimum: 1
+        reason:
+          $ref: '#/components/schemas/ReasonA77Enum'
+      required:
+      - order_line_item_id
+      - quantity
+    ReturnRequestCreate:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReturnItemCreate'
+        reason:
+          $ref: '#/components/schemas/ReasonA77Enum'
+        requested_resolution:
+          allOf:
+          - $ref: '#/components/schemas/ResolutionEnum'
+          default: REFUND
+        customer_notes:
+          type: string
+          default: ''
+        evidence_urls:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+      required:
+      - items
+      - reason
+    ReturnRequestCreateRequest:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReturnItemCreateRequest'
+        reason:
+          $ref: '#/components/schemas/ReasonA77Enum'
+        requested_resolution:
+          allOf:
+          - $ref: '#/components/schemas/ResolutionEnum'
+          default: REFUND
+        customer_notes:
+          type: string
+          default: ''
+        evidence_urls:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+      required:
+      - items
+      - reason
+    ReturnRequestDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        return_number:
+          type: string
+          readOnly: true
+        order_id:
+          type: string
+          format: uuid
+          readOnly: true
+        order_number:
+          type: string
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/Status3c6Enum'
+          readOnly: true
+        status_display:
+          type: string
+          readOnly: true
+        reason:
+          allOf:
+          - $ref: '#/components/schemas/ReasonA77Enum'
+          readOnly: true
+        reason_display:
+          type: string
+          readOnly: true
+        requested_resolution:
+          allOf:
+          - $ref: '#/components/schemas/ResolutionEnum'
+          readOnly: true
+        approved_resolution:
+          allOf:
+          - $ref: '#/components/schemas/ResolutionEnum'
+          readOnly: true
+        customer_notes:
+          type: string
+          readOnly: true
+        staff_review_notes:
+          type: string
+          readOnly: true
+        rejection_reason:
+          type: string
+          readOnly: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReturnItem'
+          readOnly: true
+        evidence:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReturnEvidence'
+          readOnly: true
+        reverse_shipment:
+          allOf:
+          - $ref: '#/components/schemas/ReturnShipment'
+          readOnly: true
+        inspection:
+          allOf:
+          - $ref: '#/components/schemas/ReturnInspection'
+          readOnly: true
+        credit_note_id:
+          type: string
+          format: uuid
+          nullable: true
+          readOnly: true
+        credit_note_number:
+          type: string
+          readOnly: true
+        refund_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          readOnly: true
+        refund_transaction_id:
+          type: string
+          readOnly: true
+        replacement_order_id:
+          type: string
+          format: uuid
+          nullable: true
+          readOnly: true
+        replacement_order_number:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        reviewed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        completed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        cancelled_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+      required:
+      - approved_resolution
+      - cancelled_at
+      - completed_at
+      - created_at
+      - credit_note_id
+      - credit_note_number
+      - customer_notes
+      - evidence
+      - id
+      - inspection
+      - items
+      - order_id
+      - order_number
+      - reason
+      - reason_display
+      - refund_amount
+      - refund_transaction_id
+      - rejection_reason
+      - replacement_order_id
+      - replacement_order_number
+      - requested_resolution
+      - return_number
+      - reverse_shipment
+      - reviewed_at
+      - staff_review_notes
+      - status
+      - status_display
+    ReturnRequestList:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        return_number:
+          type: string
+          readOnly: true
+        order_id:
+          type: string
+          format: uuid
+          readOnly: true
+        order_number:
+          type: string
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/Status3c6Enum'
+          readOnly: true
+        status_display:
+          type: string
+          readOnly: true
+        reason:
+          allOf:
+          - $ref: '#/components/schemas/ReasonA77Enum'
+          readOnly: true
+        reason_display:
+          type: string
+          readOnly: true
+        requested_resolution:
+          allOf:
+          - $ref: '#/components/schemas/ResolutionEnum'
+          readOnly: true
+        approved_resolution:
+          allOf:
+          - $ref: '#/components/schemas/ResolutionEnum'
+          readOnly: true
+        items_count:
+          type: integer
+          readOnly: true
+        total_refund_claimed:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        completed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+      required:
+      - approved_resolution
+      - completed_at
+      - created_at
+      - id
+      - items_count
+      - order_id
+      - order_number
+      - reason
+      - reason_display
+      - requested_resolution
+      - return_number
+      - status
+      - status_display
+      - total_refund_claimed
+    ReturnShipment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        shipment_number:
+          type: string
+          readOnly: true
+        courier_name:
+          allOf:
+          - $ref: '#/components/schemas/CourierNameEnum'
+          readOnly: true
+        courier_display:
+          type: string
+          readOnly: true
+        awb_number:
+          type: string
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusCe3Enum'
+          readOnly: true
+        status_display:
+          type: string
+          readOnly: true
+        scheduled_pickup_date:
+          type: string
+          format: date
+          readOnly: true
+          nullable: true
+        actual_pickup_date:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        received_at_warehouse:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        tracking_notes:
+          type: string
+          readOnly: true
+      required:
+      - actual_pickup_date
+      - awb_number
+      - courier_display
+      - courier_name
+      - id
+      - received_at_warehouse
+      - scheduled_pickup_date
+      - shipment_number
+      - status
+      - status_display
+      - tracking_notes
+    ScopeEnum:
+      enum:
+      - ORDER
+      - CATEGORY
+      - PRODUCT
+      type: string
+      description: |-
+        * `ORDER` - Entire Order
+        * `CATEGORY` - Specific Categories
+        * `PRODUCT` - Specific Products/Variants
+    SellerStateEnum:
+      enum:
+      - AN
+      - AP
+      - AR
+      - AS
+      - BR
+      - CH
+      - CG
+      - DN
+      - DL
+      - GA
+      - GJ
+      - HR
+      - HP
+      - JK
+      - JH
+      - KA
+      - KL
+      - LA
+      - LD
+      - MP
+      - MH
+      - MN
+      - ML
+      - MZ
+      - NL
+      - OD
+      - PY
+      - PB
+      - RJ
+      - SK
+      - TN
+      - TS
+      - TR
+      - UP
+      - UK
+      - WB
+      type: string
+      description: |-
+        * `AN` - Andaman and Nicobar Islands
+        * `AP` - Andhra Pradesh
+        * `AR` - Arunachal Pradesh
+        * `AS` - Assam
+        * `BR` - Bihar
+        * `CH` - Chandigarh
+        * `CG` - Chhattisgarh
+        * `DN` - Dadra and Nagar Haveli and Daman and Diu
+        * `DL` - Delhi
+        * `GA` - Goa
+        * `GJ` - Gujarat
+        * `HR` - Haryana
+        * `HP` - Himachal Pradesh
+        * `JK` - Jammu and Kashmir
+        * `JH` - Jharkhand
+        * `KA` - Karnataka
+        * `KL` - Kerala
+        * `LA` - Ladakh
+        * `LD` - Lakshadweep
+        * `MP` - Madhya Pradesh
+        * `MH` - Maharashtra
+        * `MN` - Manipur
+        * `ML` - Meghalaya
+        * `MZ` - Mizoram
+        * `NL` - Nagaland
+        * `OD` - Odisha
+        * `PY` - Puducherry
+        * `PB` - Punjab
+        * `RJ` - Rajasthan
+        * `SK` - Sikkim
+        * `TN` - Tamil Nadu
+        * `TS` - Telangana
+        * `TR` - Tripura
+        * `UP` - Uttar Pradesh
+        * `UK` - Uttarakhand
+        * `WB` - West Bengal
+    StaffCoupon:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        code:
+          type: string
+          maxLength: 50
+        description:
+          type: string
+          maxLength: 255
+        discount_type:
+          $ref: '#/components/schemas/DiscountTypeEnum'
+        discount_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        min_order_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        max_discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        valid_from:
+          type: string
+          format: date-time
+        valid_to:
+          type: string
+          format: date-time
+        usage_limit_total:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          nullable: true
+          description: Maximum global redemptions allowed across all customers.
+        usage_limit_per_user:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          description: Maximum redemptions allowed per individual customer account.
+        times_used:
+          type: integer
+          readOnly: true
+        is_active:
+          type: boolean
+        applicable_to_wholesale:
+          type: boolean
+          description: Whether this coupon can be combined with wholesale contract
+            pricing.
+        scope:
+          $ref: '#/components/schemas/ScopeEnum'
+        applicable_categories:
+          type: array
+          items:
+            type: string
+            format: uuid
+        applicable_variants:
+          type: array
+          items:
+            type: string
+            format: uuid
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - code
+      - created_at
+      - discount_type
+      - discount_value
+      - id
+      - times_used
+      - updated_at
+      - valid_from
+      - valid_to
+    StaffCouponRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          minLength: 1
+          maxLength: 50
+        description:
+          type: string
+          maxLength: 255
+        discount_type:
+          $ref: '#/components/schemas/DiscountTypeEnum'
+        discount_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        min_order_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        max_discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        valid_from:
+          type: string
+          format: date-time
+        valid_to:
+          type: string
+          format: date-time
+        usage_limit_total:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          nullable: true
+          description: Maximum global redemptions allowed across all customers.
+        usage_limit_per_user:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          description: Maximum redemptions allowed per individual customer account.
+        is_active:
+          type: boolean
+        applicable_to_wholesale:
+          type: boolean
+          description: Whether this coupon can be combined with wholesale contract
+            pricing.
+        scope:
+          $ref: '#/components/schemas/ScopeEnum'
+        applicable_categories:
+          type: array
+          items:
+            type: string
+            format: uuid
+        applicable_variants:
+          type: array
+          items:
+            type: string
+            format: uuid
+      required:
+      - code
+      - discount_type
+      - discount_value
+      - valid_from
+      - valid_to
+    StaffPromotion:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        promo_type:
+          $ref: '#/components/schemas/PromoTypeEnum'
+        discount_type:
+          $ref: '#/components/schemas/DiscountTypeEnum'
+        discount_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        min_order_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        max_discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        priority:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          description: 'Evaluation precedence: lower values evaluate first.'
+        valid_from:
+          type: string
+          format: date-time
+        valid_to:
+          type: string
+          format: date-time
+        is_active:
+          type: boolean
+        applicable_to_wholesale:
+          type: boolean
+          description: Whether this promotion applies to wholesale/B2B tier customers.
+        stackable_with_coupons:
+          type: boolean
+          description: Whether customer coupons can be combined on top of this automatic
+            promotion.
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/PromotionRule'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - discount_type
+      - discount_value
+      - id
+      - name
+      - promo_type
+      - updated_at
+      - valid_from
+      - valid_to
+    StaffPromotionRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type: string
+        promo_type:
+          $ref: '#/components/schemas/PromoTypeEnum'
+        discount_type:
+          $ref: '#/components/schemas/DiscountTypeEnum'
+        discount_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        min_order_value:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        max_discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        priority:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          description: 'Evaluation precedence: lower values evaluate first.'
+        valid_from:
+          type: string
+          format: date-time
+        valid_to:
+          type: string
+          format: date-time
+        is_active:
+          type: boolean
+        applicable_to_wholesale:
+          type: boolean
+          description: Whether this promotion applies to wholesale/B2B tier customers.
+        stackable_with_coupons:
+          type: boolean
+          description: Whether customer coupons can be combined on top of this automatic
+            promotion.
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/PromotionRuleRequest'
+      required:
+      - discount_type
+      - discount_value
+      - name
+      - promo_type
+      - valid_from
+      - valid_to
+    StaffReturnComplete:
+      type: object
+      properties:
+        resolution:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/ResolutionEnum'
+          - $ref: '#/components/schemas/NullEnum'
+    StaffReturnCompleteRequest:
+      type: object
+      properties:
+        resolution:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/ResolutionEnum'
+          - $ref: '#/components/schemas/NullEnum'
+    StaffReturnInspection:
+      type: object
+      properties:
+        result:
+          allOf:
+          - $ref: '#/components/schemas/ResultEnum'
+          default: PASSED
+        disposition:
+          allOf:
+          - $ref: '#/components/schemas/DispositionEnum'
+          default: RESTOCK
+        quantity_passed:
+          type: integer
+          minimum: 0
+          default: 0
+        quantity_failed:
+          type: integer
+          minimum: 0
+          default: 0
+        notes:
+          type: string
+          default: ''
+    StaffReturnInspectionRequest:
+      type: object
+      properties:
+        result:
+          allOf:
+          - $ref: '#/components/schemas/ResultEnum'
+          default: PASSED
+        disposition:
+          allOf:
+          - $ref: '#/components/schemas/DispositionEnum'
+          default: RESTOCK
+        quantity_passed:
+          type: integer
+          minimum: 0
+          default: 0
+        quantity_failed:
+          type: integer
+          minimum: 0
+          default: 0
+        notes:
+          type: string
+          default: ''
+    StaffReturnReview:
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/ActionEnum'
+        approved_resolution:
+          allOf:
+          - $ref: '#/components/schemas/ResolutionEnum'
+          default: REFUND
+        rejection_reason:
+          type: string
+          default: ''
+        review_notes:
+          type: string
+          default: ''
+      required:
+      - action
+    StaffReturnReviewRequest:
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/ActionEnum'
+        approved_resolution:
+          allOf:
+          - $ref: '#/components/schemas/ResolutionEnum'
+          default: REFUND
+        rejection_reason:
+          type: string
+          default: ''
+        review_notes:
+          type: string
+          default: ''
+      required:
+      - action
+    StaffReversePickupSchedule:
+      type: object
+      properties:
+        courier_name:
+          allOf:
+          - $ref: '#/components/schemas/CourierNameEnum'
+          default: MANUAL
+        scheduled_date:
+          type: string
+          format: date
+          nullable: true
+        notes:
+          type: string
+          default: ''
+    StaffReversePickupScheduleRequest:
+      type: object
+      properties:
+        courier_name:
+          allOf:
+          - $ref: '#/components/schemas/CourierNameEnum'
+          default: MANUAL
+        scheduled_date:
+          type: string
+          format: date
+          nullable: true
+        notes:
+          type: string
+          default: ''
+    StaffReverseShipmentStatus:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/StatusCe3Enum'
+        notes:
+          type: string
+          default: ''
+      required:
+      - status
+    StaffReverseShipmentStatusRequest:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/StatusCe3Enum'
+        notes:
+          type: string
+          default: ''
+      required:
+      - status
+    Status3c6Enum:
+      enum:
+      - PENDING_REVIEW
+      - APPROVED
+      - REJECTED
+      - PICKUP_SCHEDULED
+      - IN_TRANSIT
+      - RECEIVED
+      - INSPECTED
+      - COMPLETED
+      - CANCELLED
+      type: string
+      description: |-
+        * `PENDING_REVIEW` - Pending Staff Review
+        * `APPROVED` - Approved for Pickup
+        * `REJECTED` - Rejected
+        * `PICKUP_SCHEDULED` - Reverse Pickup Scheduled
+        * `IN_TRANSIT` - In Transit to Warehouse
+        * `RECEIVED` - Received at Warehouse
+        * `INSPECTED` - Inspection Completed
+        * `COMPLETED` - Completed (Resolved)
+        * `CANCELLED` - Cancelled by Customer
+    StatusCe3Enum:
+      enum:
+      - SCHEDULED
+      - OUT_FOR_PICKUP
+      - PICKED_UP
+      - IN_TRANSIT
+      - DELIVERED
+      - FAILED_PICKUP
+      - CANCELLED
+      type: string
+      description: |-
+        * `SCHEDULED` - Pickup Scheduled
+        * `OUT_FOR_PICKUP` - Out for Pickup
+        * `PICKED_UP` - Picked Up
+        * `IN_TRANSIT` - In Transit to Warehouse
+        * `DELIVERED` - Delivered to Warehouse
+        * `FAILED_PICKUP` - Failed Pickup
+        * `CANCELLED` - Cancelled
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+tags:
+- name: Core
+  description: Platform health checks and readiness probes
+- name: Authentication
+  description: Customer and staff authentication, registration, and token rotation
+- name: Accounts
+  description: User profile management and customer address book
+- name: Catalog
+  description: Categories, spice products, pack-size variants, and reviews
+- name: Cart
+  description: Guest and authenticated shopping cart management
+- name: Orders
+  description: Atomic checkout, order state machine, history, and cancellation
+- name: Payments
+  description: Razorpay order initiation, signature verification, and webhooks
+- name: Inventory
+  description: Stock item queries, restock operations, and warehouse adjustments
+- name: Shipping
+  description: Consignment fulfillment, carrier booking, and parcel tracking
+- name: Invoices
+  description: Statutory Indian GST tax invoices, credit notes, and PDF downloads
+- name: Returns
+  description: Customer returns, reverse logistics, QA inspection, and RMA resolutions
+- name: Notifications
+  description: Staff communication audit logs and message resend
+- name: Promotions
+  description: Discount coupons and automated promotional campaigns
+- name: Wholesale
+  description: B2B wholesale customer registration and KYC verification
+- name: Staff Operations
+  description: Staff and management administration workflows

@@ -1,0 +1,3 @@
+"""
+Notifications test package.
+"""

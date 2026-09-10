@@ -1,0 +1,7 @@
+Return Request Approved - Bharath Masala Products
+
+Dear {{ customer_name }},
+
+Your return request for order #{{ order_number }} has been approved. Reverse pickup details will be shared shortly.
+
+Bharath Masala Products, Thirthahalli.

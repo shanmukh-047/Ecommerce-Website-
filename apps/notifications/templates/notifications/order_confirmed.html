@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; color: #1e293b; padding: 20px; }
+        .card { max-width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 30px; }
+        .header { border-bottom: 2px solid #881337; padding-bottom: 12px; margin-bottom: 20px; }
+        .title { color: #881337; font-size: 20px; font-weight: 700; }
+        .item-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f1f5f9; }
+        .total { font-size: 16px; font-weight: 700; color: #881337; margin-top: 15px; text-align: right; }
+        .footer { margin-top: 25px; font-size: 12px; color: #64748b; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <div class="title">Bharath Masala Products</div>
+        </div>
+        <h2>Order Confirmed!</h2>
+        <p>Dear {{ customer_name }},</p>
+        <p>Thank you for ordering with Bharath Masala! We have received your order <strong>#{{ order.order_number }}</strong> and are preparing it for shipment.</p>
+        
+        <h3>Order Summary</h3>
+        {% for line in items %}
+        <div class="item-row">
+            <span>{{ line.product_name }} - {{ line.variant_name }} (x{{ line.quantity }})</span>
+            <span>Rs. {{ line.line_subtotal }}</span>
+        </div>
+        {% endfor %}
+
+        <div class="total">Grand Total: Rs. {{ order.grand_total }}</div>
+
+        <p style="margin-top: 20px;">
+            <strong>Shipping to:</strong><br>
+            {{ shipping_address }}
+        </p>
+
+        <div class="footer">
+            Thank you for choosing pure Malnad flavours.<br>
+            Bharath Masala Products, Thirthahalli, Karnataka.
+        </div>
+    </div>
+</body>
+</html>

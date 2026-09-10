@@ -1,0 +1,7 @@
+Return Package Received - Bharath Masala Products
+
+Dear {{ customer_name }},
+
+Your return package for order #{{ order_number }} has arrived at our warehouse. We are completing the quality inspection.
+
+Bharath Masala Products, Thirthahalli.

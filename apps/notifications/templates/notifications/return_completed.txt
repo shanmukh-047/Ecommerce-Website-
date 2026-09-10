@@ -1,0 +1,9 @@
+Return Completed - Bharath Masala Products
+
+Dear {{ customer_name }},
+
+Your return request for order #{{ order_number }} has been fully processed and resolved.
+
+Thank you for your patience.
+
+Bharath Masala Products, Thirthahalli.

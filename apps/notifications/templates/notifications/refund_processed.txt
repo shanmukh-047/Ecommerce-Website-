@@ -1,0 +1,8 @@
+Refund Processed - Bharath Masala Products
+
+Dear {{ customer_name }},
+
+A refund has been processed for your order #{{ order.order_number }}.
+The refund amount will be credited to your original payment method in 5-7 business days.
+
+Bharath Masala Products, Thirthahalli.

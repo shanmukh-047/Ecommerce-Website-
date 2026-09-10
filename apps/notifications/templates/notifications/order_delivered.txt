@@ -1,0 +1,8 @@
+Order Delivered - Bharath Masala Products
+
+Dear {{ customer_name }},
+
+Your order #{{ order.order_number }} has been successfully delivered!
+We hope you enjoy your authentic Malnad spices.
+
+Bharath Masala Products, Thirthahalli.
