@@ -135,10 +135,10 @@ export default function ProductDetailPage() {
     setIsAdding(true);
     try {
       if (addToCart) {
-        await addToCart(selectedVariant.id, purchaseQuantity, andCheckout);
+        await addToCart(selectedVariant.id, purchaseQuantity, !andCheckout);
       }
-      if (andCheckout && openCart) {
-        openCart();
+      if (andCheckout) {
+        router.push('/checkout');
       }
     } catch (err) {
       // Toast is handled in CartContext

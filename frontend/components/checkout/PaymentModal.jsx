@@ -82,6 +82,11 @@ export default function PaymentModal({
       if (!gw || !gw.gateway_order_id) {
         throw new Error('Payment gateway configuration not received from server.');
       }
+      if (!gw.key_id || gw.key_id.includes('placeholder') || !gw.gateway_order_id || gw.gateway_order_id.includes('placeholder')) {
+        setPaymentStatus('FAILED');
+        setErrorMessage('Online payment is not configured yet. Please choose Cash on Delivery (COD) to complete your order.');
+        return null;
+      }
       setGatewayData(gw);
       setPaymentStatus('IDLE');
       return gw;

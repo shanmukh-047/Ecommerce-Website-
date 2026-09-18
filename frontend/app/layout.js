@@ -2,7 +2,13 @@ import './globals.css';
 import Providers from '../components/layout/Providers';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
-import StorefrontAccessGate from '../components/layout/StorefrontAccessGate';
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#D97706',
+};
 
 export const metadata = {
   title: 'Bharat Masala — Authentic Western Ghats Single Origin Spices',
@@ -16,11 +22,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="bg-spice-canvas text-spice-black antialiased font-body flex flex-col min-h-screen selection:bg-saffron-600 selection:text-white">
         <Providers>
-          <StorefrontAccessGate>
-            <Header />
-            <main className="flex-1 w-full">{children}</main>
-            <Footer />
-          </StorefrontAccessGate>
+          <Header />
+          <main className="flex-1 w-full">{children}</main>
+          <Footer />
         </Providers>
       </body>
     </html>

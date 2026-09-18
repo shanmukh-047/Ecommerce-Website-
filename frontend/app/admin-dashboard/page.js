@@ -33,7 +33,7 @@ export default function AdminDashboardPage() {
       setData(res);
     } catch (err) {
       console.error('Error loading dashboard metrics:', err);
-      setErrorMessage('Unable to load administrative metrics. Please check network connection.');
+      setErrorMessage(err.userMessage || err.message || 'Unable to load administrative metrics. Please try again.');
     } finally {
       setIsLoading(false);
     }

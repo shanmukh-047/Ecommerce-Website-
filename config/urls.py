@@ -5,7 +5,8 @@ Root URL Configuration for Bharath Masala Products Platform.
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
+from django.views.static import serve
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularRedocView,
@@ -17,9 +18,11 @@ from apps.core.views import LivenessCheckView, ReadinessCheckView
 urlpatterns = [
     # Administration
     path("admin/", admin.site.urls),
-    # Production Health & Readiness Probes
+    # Production Health & Readiness Probes (Root and API level)
+    path("health/", ReadinessCheckView.as_view(), name="health-check"),
     path("health/liveness/", LivenessCheckView.as_view(), name="liveness-check"),
     path("health/readiness/", ReadinessCheckView.as_view(), name="readiness-check"),
+    path("api/health/", ReadinessCheckView.as_view(), name="api-health-check"),
     # API v1 Namespaces
     path("api/v1/auth/", include("apps.accounts.urls", namespace="auth")),
     path("api/v1/staff/", include("apps.accounts.staff_urls", namespace="staff")),
@@ -58,3 +61,7 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    urlpatterns += [
+        re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
+    ]

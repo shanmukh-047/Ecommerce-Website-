@@ -73,7 +73,7 @@ export default function CategorySection() {
             </div>
             <Skeleton height="20px" width="110px" />
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6">
             {Array.from({ length: 4 }).map((_, i) => (
               <Skeleton key={i} height="180px" className="rounded-2xl" />
             ))}
@@ -109,7 +109,7 @@ export default function CategorySection() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6">
           {categories.map((category) => {
             const meta = CATEGORY_META[category.slug] || {
               icon: Sparkles,
@@ -125,14 +125,14 @@ export default function CategorySection() {
               <Link
                 key={category.id || category.slug}
                 href={`/products?category=${category.slug}`}
-                className={`group relative flex flex-col justify-between p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-spice-canvas/90 to-white border border-spice-border ${meta.border} hover:shadow-card-hover transition-all duration-200`}
+                className={`group relative flex flex-col justify-between p-3.5 sm:p-6 rounded-2xl bg-gradient-to-br from-spice-canvas/90 to-white border border-spice-border ${meta.border} hover:shadow-card-hover transition-all duration-200 min-w-0`}
               >
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className={`h-12 w-12 rounded-xl ${meta.iconBg} flex items-center justify-center shadow-2xs group-hover:scale-105 transition-transform`}>
-                      <Icon className="h-6 w-6" />
+                  <div className="flex items-center justify-between gap-1.5 flex-wrap mb-3 sm:mb-4">
+                    <div className={`h-10 w-10 sm:h-12 sm:w-12 rounded-xl ${meta.iconBg} flex items-center justify-center shadow-2xs group-hover:scale-105 transition-transform shrink-0`}>
+                      <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
                     </div>
-                    <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white border border-spice-border text-spice-stone">
+                    <span className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white border border-spice-border text-spice-stone truncate">
                       {meta.badge}
                     </span>
                   </div>

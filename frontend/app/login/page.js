@@ -3,12 +3,13 @@
 import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Eye, EyeOff, Lock, Mail, ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, ArrowRight, ShieldCheck, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../components/common/Toast';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
 import Card from '../../components/common/Card';
+import authService from '../../services/authService';
 
 function LoginForm() {
   const router = useRouter();
@@ -24,6 +25,13 @@ function LoginForm() {
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Forgot password state
+  const [showForgot, setShowForgot] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState('');
+  const [forgotSubmitted, setForgotSubmitted] = useState(false);
+  const [forgotLoading, setForgotLoading] = useState(false);
+  const [forgotError, setForgotError] = useState('');
 
   // If already authenticated, redirect
   React.useEffect(() => {
@@ -63,13 +71,32 @@ function LoginForm() {
       success(`Welcome back, ${userName}!`, 'Signed In');
       router.replace(nextUrl);
     } catch (err) {
-      if (err.isNetworkError || err.status === 0) {
-        setApiError('Unable to connect to the Bharat Masala backend. Please check your network connection or verify that the server is online.');
-      } else {
-        setApiError(err.userMessage || err.message || 'Invalid email or password. Please try again.');
-      }
+      setApiError(err.userMessage || err.message || 'Invalid email or password. Please try again.');
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleForgotSubmit = async (e) => {
+    e.preventDefault();
+    setForgotError('');
+    if (!forgotEmail.trim()) {
+      setForgotError('Please enter your email address');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(forgotEmail.trim())) {
+      setForgotError('Enter a valid email address');
+      return;
+    }
+
+    setForgotLoading(true);
+    try {
+      await authService.requestPasswordReset(forgotEmail.trim().toLowerCase());
+      setForgotSubmitted(true);
+    } catch (err) {
+      setForgotError(err.userMessage || err.message || 'Failed to request password reset. Please try again.');
+    } finally {
+      setForgotLoading(false);
     }
   };
 
@@ -90,84 +117,179 @@ function LoginForm() {
             </span>
           </Link>
           <h1 className="text-xl font-bold font-display text-spice-black mt-2">
-            Sign In to Your Account
+            {showForgot ? 'Reset Your Password' : 'Sign In to Your Account'}
           </h1>
           <p className="text-xs text-spice-stone mt-1">
-            Access your order tracking, wholesale pricing, and saved addresses
+            {showForgot
+              ? 'Enter your registered email to receive recovery instructions'
+              : 'Access your order tracking, wholesale pricing, and saved addresses'}
           </p>
         </div>
 
         {/* Form Container */}
         <Card variant="elevated" padding="lg" className="rounded-2xl">
-          {apiError && (
-            <div
-              role="alert"
-              className="mb-5 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50/80 p-3 text-xs text-red-700 animate-slideUp"
-            >
-              <AlertCircle className="h-4 w-4 shrink-0 text-red-600 mt-0.5" />
-              <div className="flex-1 font-medium">{apiError}</div>
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <Input
-              label="Email Address"
-              type="email"
-              name="email"
-              autoComplete="email"
-              required
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                if (errors.email) setErrors((prev) => ({ ...prev, email: '' }));
-              }}
-              error={errors.email}
-              leftIcon={<Mail className="h-4 w-4" />}
-              placeholder="name@example.com"
-            />
-
-            <div>
-              <Input
-                label="Password"
-                type={showPassword ? 'text' : 'password'}
-                name="password"
-                autoComplete="current-password"
-                required
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  if (errors.password) setErrors((prev) => ({ ...prev, password: '' }));
-                }}
-                error={errors.password}
-                leftIcon={<Lock className="h-4 w-4" />}
-                rightIcon={
-                  <button
+          {showForgot ? (
+            <div className="space-y-4">
+              {forgotSubmitted ? (
+                <div className="space-y-4">
+                  <div className="rounded-xl border border-emerald-200 bg-emerald-50/80 p-4 text-xs text-emerald-800 flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-600 mt-0.5" />
+                    <div>
+                      <p className="font-semibold mb-1">Reset Request Received</p>
+                      <p className="text-emerald-700 leading-relaxed">
+                        If an account exists with <span className="font-medium">{forgotEmail}</span>, password reset instructions have been dispatched. Please check your inbox and spam folder.
+                      </p>
+                    </div>
+                  </div>
+                  <Button
                     type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="text-spice-stone hover:text-spice-black focus:outline-none"
-                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    variant="outline"
+                    size="md"
+                    isFullWidth
+                    onClick={() => {
+                      setShowForgot(false);
+                      setForgotSubmitted(false);
+                    }}
+                    className="text-xs font-semibold"
                   >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </button>
-                }
-                placeholder="••••••••"
-              />
-            </div>
+                    Return to Sign In
+                  </Button>
+                </div>
+              ) : (
+                <form onSubmit={handleForgotSubmit} className="space-y-4">
+                  {forgotError && (
+                    <div
+                      role="alert"
+                      className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50/80 p-3 text-xs text-red-700"
+                    >
+                      <AlertCircle className="h-4 w-4 shrink-0 text-red-600 mt-0.5" />
+                      <div className="flex-1 font-medium">{forgotError}</div>
+                    </div>
+                  )}
 
-            <div className="pt-2">
-              <Button
-                type="submit"
-                variant="primary"
-                size="lg"
-                isFullWidth
-                isLoading={isSubmitting}
-                rightIcon={<ArrowRight className="h-4 w-4" />}
-                className="font-semibold uppercase tracking-wider text-xs"
-              >
-                Sign In
-              </Button>
+                  <Input
+                    label="Registered Email Address"
+                    type="email"
+                    required
+                    value={forgotEmail}
+                    onChange={(e) => {
+                      setForgotEmail(e.target.value);
+                      if (forgotError) setForgotError('');
+                    }}
+                    leftIcon={<Mail className="h-4 w-4" />}
+                    placeholder="name@example.com"
+                  />
+
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    size="lg"
+                    isFullWidth
+                    isLoading={forgotLoading}
+                    className="font-semibold uppercase tracking-wider text-xs"
+                  >
+                    Send Reset Instructions
+                  </Button>
+
+                  <div className="text-center pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowForgot(false)}
+                      className="text-xs font-medium text-spice-stone hover:text-spice-black hover:underline"
+                    >
+                      &larr; Back to Sign In
+                    </button>
+                  </div>
+                </form>
+              )}
             </div>
-          </form>
+          ) : (
+            <>
+              {apiError && (
+                <div
+                  role="alert"
+                  className="mb-5 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50/80 p-3 text-xs text-red-700 animate-slideUp"
+                >
+                  <AlertCircle className="h-4 w-4 shrink-0 text-red-600 mt-0.5" />
+                  <div className="flex-1 font-medium">{apiError}</div>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <Input
+                  label="Email Address"
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  required
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (errors.email) setErrors((prev) => ({ ...prev, email: '' }));
+                  }}
+                  error={errors.email}
+                  leftIcon={<Mail className="h-4 w-4" />}
+                  placeholder="name@example.com"
+                />
+
+                <div>
+                  <Input
+                    label="Password"
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    autoComplete="current-password"
+                    required
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      if (errors.password) setErrors((prev) => ({ ...prev, password: '' }));
+                    }}
+                    error={errors.password}
+                    leftIcon={<Lock className="h-4 w-4" />}
+                    rightIcon={
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="text-spice-stone hover:text-spice-black focus:outline-none"
+                        aria-label={showPassword ? 'Hide password' : 'Show password'}
+                      >
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    }
+                    placeholder="••••••••"
+                  />
+                  <div className="flex justify-end mt-1.5">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setForgotEmail(email);
+                        setForgotError('');
+                        setForgotSubmitted(false);
+                        setShowForgot(true);
+                      }}
+                      className="text-xs font-medium text-saffron-700 hover:text-saffron-800 hover:underline"
+                    >
+                      Forgot password?
+                    </button>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    size="lg"
+                    isFullWidth
+                    isLoading={isSubmitting}
+                    rightIcon={<ArrowRight className="h-4 w-4" />}
+                    className="font-semibold uppercase tracking-wider text-xs"
+                  >
+                    Sign In
+                  </Button>
+                </div>
+              </form>
+            </>
+          )}
 
           {/* Registration Links */}
           <div className="mt-6 pt-5 border-t border-spice-borderSubtle text-center text-xs space-y-3">

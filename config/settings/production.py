@@ -19,11 +19,10 @@ if not SECRET_KEY or len(SECRET_KEY) < 50:
         "a cryptographically secure string (minimum 50 characters) in production."
     )
 
-allowed_hosts_env = os.getenv("DJANGO_ALLOWED_HOSTS")
-if not allowed_hosts_env:
-    raise RuntimeError(
-        "CRITICAL SECURITY CONFIGURATION ERROR: DJANGO_ALLOWED_HOSTS is required in production."
-    )
+allowed_hosts_env = os.getenv(
+    "DJANGO_ALLOWED_HOSTS",
+    "bharathmasala.com,www.bharathmasala.com,.onrender.com,localhost,127.0.0.1",
+)
 ALLOWED_HOSTS = [h.strip() for h in allowed_hosts_env.split(",") if h.strip()]
 if "*" in ALLOWED_HOSTS:
     raise RuntimeError(
@@ -47,17 +46,17 @@ DATABASES = {
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
 
-cors_origins_env = os.getenv("CORS_ALLOWED_ORIGINS", "")
-if cors_origins_env:
-    CORS_ALLOWED_ORIGINS = [o.strip() for o in cors_origins_env.split(",") if o.strip()]
-else:
-    CORS_ALLOWED_ORIGINS = []
+cors_origins_env = os.getenv(
+    "CORS_ALLOWED_ORIGINS",
+    "https://bharathmasala.com,https://www.bharathmasala.com",
+)
+CORS_ALLOWED_ORIGINS = [o.strip() for o in cors_origins_env.split(",") if o.strip()]
 
-csrf_origins_env = os.getenv("CSRF_TRUSTED_ORIGINS", "")
-if csrf_origins_env:
-    CSRF_TRUSTED_ORIGINS = [o.strip() for o in csrf_origins_env.split(",") if o.strip()]
-else:
-    CSRF_TRUSTED_ORIGINS = []
+csrf_origins_env = os.getenv(
+    "CSRF_TRUSTED_ORIGINS",
+    "https://bharathmasala.com,https://www.bharathmasala.com",
+)
+CSRF_TRUSTED_ORIGINS = [o.strip() for o in csrf_origins_env.split(",") if o.strip()]
 
 # HTTPS & Cookie Security
 SECURE_COOKIE = True
@@ -77,26 +76,29 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
 # Payment Gateway Configuration Validation (Phase 3.5 & Production Hardening)
+ENABLE_RAZORPAY = os.getenv("ENABLE_RAZORPAY", "True").lower() in ("true", "1", "yes")
+
 razorpay_key_id = os.getenv("RAZORPAY_KEY_ID", RAZORPAY_KEY_ID)
 razorpay_key_secret = os.getenv("RAZORPAY_KEY_SECRET", RAZORPAY_KEY_SECRET)
 razorpay_webhook_secret = os.getenv("RAZORPAY_WEBHOOK_SECRET", RAZORPAY_WEBHOOK_SECRET)
 
-if not razorpay_key_id or "placeholder" in razorpay_key_id.lower():
-    raise RuntimeError(
-        "CRITICAL CONFIGURATION ERROR: RAZORPAY_KEY_ID must be configured with a valid "
-        "production key and cannot be empty or a placeholder."
-    )
-if not razorpay_key_secret or "placeholder" in razorpay_key_secret.lower():
-    raise RuntimeError(
-        "CRITICAL CONFIGURATION ERROR: RAZORPAY_KEY_SECRET must be configured with a valid "
-        "production secret and cannot be empty or a placeholder."
-    )
-if (
-    not razorpay_webhook_secret
-    or "placeholder" in razorpay_webhook_secret.lower()
-    or razorpay_webhook_secret == "test_webhook_secret"
-):
-    raise RuntimeError(
-        "CRITICAL CONFIGURATION ERROR: RAZORPAY_WEBHOOK_SECRET must be configured with a valid "
-        "production webhook secret."
-    )
+if ENABLE_RAZORPAY:
+    if not razorpay_key_id or "placeholder" in razorpay_key_id.lower():
+        raise RuntimeError(
+            "CRITICAL CONFIGURATION ERROR: RAZORPAY_KEY_ID must be configured with a valid "
+            "production key and cannot be empty or a placeholder when ENABLE_RAZORPAY=True."
+        )
+    if not razorpay_key_secret or "placeholder" in razorpay_key_secret.lower():
+        raise RuntimeError(
+            "CRITICAL CONFIGURATION ERROR: RAZORPAY_KEY_SECRET must be configured with a valid "
+            "production secret and cannot be empty or a placeholder when ENABLE_RAZORPAY=True."
+        )
+    if (
+        not razorpay_webhook_secret
+        or "placeholder" in razorpay_webhook_secret.lower()
+        or razorpay_webhook_secret == "test_webhook_secret"
+    ):
+        raise RuntimeError(
+            "CRITICAL CONFIGURATION ERROR: RAZORPAY_WEBHOOK_SECRET must be configured with a valid "
+            "production webhook secret when ENABLE_RAZORPAY=True."
+        )

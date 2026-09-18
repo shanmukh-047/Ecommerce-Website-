@@ -74,12 +74,7 @@ export default function StorefrontAuth({ onSuccess }) {
       success(`Welcome back to Bharat Masala, ${userName}!`, 'Access Granted');
       if (onSuccess) onSuccess(result);
     } catch (err) {
-      // Differentiate network failure vs invalid credentials
-      if (err.isNetworkError || err.status === 0) {
-        setLoginApiError('Unable to connect to the Bharat Masala backend. Please verify your internet connection or that the server is online.');
-      } else {
-        setLoginApiError(err.userMessage || err.message || 'Invalid email or password. Please check your credentials.');
-      }
+      setLoginApiError(err.userMessage || err.message || 'Invalid email or password. Please check your credentials.');
     } finally {
       setIsLoggingIn(false);
     }
@@ -107,11 +102,7 @@ export default function StorefrontAuth({ onSuccess }) {
       await authService.requestPasswordReset(forgotEmail.trim().toLowerCase());
       setForgotSuccess(true);
     } catch (err) {
-      if (err.isNetworkError || err.status === 0) {
-        setForgotApiError('Unable to connect to the backend server. Please verify your connection.');
-      } else {
-        setForgotApiError(err.userMessage || err.message || 'Failed to process password reset. Please try again.');
-      }
+      setForgotApiError(err.userMessage || err.message || 'Failed to process password reset. Please try again.');
     } finally {
       setIsSubmittingForgot(false);
     }
@@ -173,11 +164,7 @@ export default function StorefrontAuth({ onSuccess }) {
         }
       }
 
-      if (err.isNetworkError || err.status === 0) {
-        setRegApiError('Unable to connect to the backend server. Please verify your connection.');
-      } else {
-        setRegApiError(err.userMessage || err.message || 'Registration failed. Please check your information.');
-      }
+      setRegApiError(err.userMessage || err.message || 'Registration failed. Please check your information.');
     } finally {
       setIsRegistering(false);
     }

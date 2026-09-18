@@ -28,7 +28,7 @@ export default function QualityPromise() {
   ];
 
   return (
-    <section className="py-16 bg-white border-b border-spice-borderSubtle">
+    <section className="py-16 bg-white border-b border-spice-borderSubtle overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="rounded-3xl bg-gradient-to-br from-spice-earth to-stone-900 text-white p-8 sm:p-12 lg:p-14 overflow-hidden relative shadow-xl">
           {/* Subtle background glow */}

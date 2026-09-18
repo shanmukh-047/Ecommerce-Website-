@@ -163,7 +163,7 @@ export default function ProductCard({
   return (
     <div
       onClick={handleCardClick}
-      className={`group relative flex flex-col justify-between rounded-xl bg-white border border-spice-border p-3.5 sm:p-4 transition-all duration-200 hover:-translate-y-1 hover:shadow-card-hover hover:border-saffron-500/40 cursor-pointer ${className}`}
+      className={`group relative flex flex-col justify-between rounded-xl bg-white border border-spice-border p-2.5 sm:p-4 min-w-0 transition-all duration-200 hover:-translate-y-1 hover:shadow-card-hover hover:border-saffron-500/40 cursor-pointer ${className}`}
     >
       <div>
         {/* Top Media Container */}
@@ -286,25 +286,25 @@ export default function ProductCard({
       </div>
 
       {/* Pricing & Add to Cart Footer */}
-      <div className="pt-2.5 border-t border-spice-borderSubtle flex items-center justify-between gap-2 mt-auto">
-        <div className="flex flex-col">
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-base font-bold text-spice-black tabular-nums">
+      <div className="pt-2 border-t border-spice-borderSubtle flex items-center justify-between gap-1 sm:gap-2 mt-auto min-w-0">
+        <div className="flex flex-col min-w-0">
+          <div className="flex items-baseline gap-1 flex-wrap">
+            <span className="text-sm sm:text-base font-bold text-spice-black tabular-nums">
               ₹{Math.round(price)}
             </span>
             {hasDiscount && mrp > price && (
-              <span className="text-xs text-spice-muted line-through tabular-nums">
+              <span className="text-[10px] sm:text-xs text-spice-muted line-through tabular-nums">
                 ₹{Math.round(mrp)}
               </span>
             )}
           </div>
           {selectedVariant?.variant_name && variants.length <= 1 && (
-            <span className="text-[10px] text-spice-muted font-medium">
+            <span className="text-[10px] text-spice-muted font-medium truncate">
               {selectedVariant.variant_name}
             </span>
           )}
           {!selectedVariant && starting_price_label && (
-            <span className="text-[10px] text-spice-muted font-medium">
+            <span className="text-[10px] text-spice-muted font-medium truncate">
               {starting_price_label}
             </span>
           )}
@@ -313,7 +313,7 @@ export default function ProductCard({
         {/* Action Button: ADD or Quantity Stepper */}
         <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
           {!isInStock ? (
-            <span className="text-xs font-semibold text-spice-muted py-1.5 px-2">
+            <span className="text-[10px] sm:text-xs font-semibold text-spice-muted py-1 px-1.5">
               Unavailable
             </span>
           ) : activeCartQty > 0 ? (
@@ -329,8 +329,8 @@ export default function ProductCard({
               variant="outline"
               size="sm"
               onClick={handleAddClick}
-              leftIcon={<Plus className="h-3.5 w-3.5" />}
-              className="border-saffron-600 font-semibold px-3 uppercase tracking-wider text-xs hover:bg-saffron-50"
+              leftIcon={<Plus className="h-3 w-3 sm:h-3.5 sm:w-3.5" />}
+              className="border-saffron-600 font-semibold px-2 sm:px-3 uppercase tracking-wider text-[11px] sm:text-xs hover:bg-saffron-50"
             >
               ADD
             </Button>

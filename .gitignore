@@ -35,6 +35,10 @@ staticfiles/
 .env
 .env.local
 .env.*.local
+.env.production
+.env.staging
+!.env.example
+!.env.production.example
 
 # IDEs & OS
 .DS_Store

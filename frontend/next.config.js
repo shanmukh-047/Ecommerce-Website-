@@ -33,17 +33,53 @@ const nextConfig = {
     }
 
     const cleanBackend = backendTarget.replace(/\/+$/, '');
+    const serverRoot = cleanBackend.replace(/\/api$/, '');
 
-    return [
-      {
-        source: '/api/v1/:path*',
-        destination: `${cleanBackend}/api/v1/:path*/`,
-      },
-      {
-        source: '/media/:path*',
-        destination: `${cleanBackend}/media/:path*`,
-      },
-    ];
+    return {
+      beforeFiles: [
+        // Django Administration
+        {
+          source: '/admin',
+          destination: `${serverRoot}/admin/`,
+        },
+        {
+          source: '/admin/:path*',
+          destination: `${serverRoot}/admin/:path*/`,
+        },
+        // Django REST API
+        {
+          source: '/api',
+          destination: `${serverRoot}/api/`,
+        },
+        {
+          source: '/api/:path*',
+          destination: `${serverRoot}/api/:path*/`,
+        },
+        // Static assets for Django Admin & DRF
+        {
+          source: '/static/admin/:path*',
+          destination: `${serverRoot}/static/admin/:path*`,
+        },
+        {
+          source: '/static/rest_framework/:path*',
+          destination: `${serverRoot}/static/rest_framework/:path*`,
+        },
+        // Media files (product photos, invoices)
+        {
+          source: '/media/:path*',
+          destination: `${serverRoot}/media/:path*`,
+        },
+        // Health check probes
+        {
+          source: '/health',
+          destination: `${serverRoot}/health/`,
+        },
+        {
+          source: '/health/:path*',
+          destination: `${serverRoot}/health/:path*`,
+        },
+      ],
+    };
   },
 };
 

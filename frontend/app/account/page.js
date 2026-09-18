@@ -304,18 +304,18 @@ export default function AccountPage() {
 
   return (
     <RouteGuard>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+      <div className="max-w-6xl mx-auto px-3 sm:px-6 py-8 sm:py-10 min-w-0 w-full overflow-hidden">
         {/* User Greeting & Stats Banner */}
-        <div className="rounded-2xl bg-white border border-spice-border p-6 sm:p-8 shadow-subtle mb-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-saffron-100 text-2xl font-bold font-serif text-saffron-800 border border-saffron-300 shadow-xs">
+        <div className="rounded-2xl bg-white border border-spice-border p-4 sm:p-8 shadow-subtle mb-8 min-w-0">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 min-w-0">
+            <div className="flex items-center gap-3 sm:gap-4 min-w-0 w-full sm:w-auto">
+              <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-2xl bg-saffron-100 text-xl sm:text-2xl font-bold font-serif text-saffron-800 border border-saffron-300 shadow-xs">
                 {(user?.first_name?.[0] || user?.email?.[0] || 'U').toUpperCase()}
               </div>
 
-              <div>
+              <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <h1 className="text-xl sm:text-2xl font-bold font-display text-spice-black">
+                  <h1 className="text-lg sm:text-2xl font-bold font-display text-spice-black truncate">
                     {user?.full_name || user?.first_name || 'Valued Customer'}
                   </h1>
                   {isWholesale ? (
@@ -333,21 +333,21 @@ export default function AccountPage() {
                   )}
                 </div>
 
-                <div className="flex items-center gap-4 text-xs text-spice-stone mt-1.5 flex-wrap">
-                  <span className="flex items-center gap-1">
-                    <Mail className="h-3.5 w-3.5 text-spice-muted" />
-                    {user?.email}
+                <div className="flex items-center gap-2 sm:gap-4 text-xs text-spice-stone mt-1.5 flex-wrap">
+                  <span className="flex items-center gap-1 max-w-full min-w-0">
+                    <Mail className="h-3.5 w-3.5 shrink-0 text-spice-muted" />
+                    <span className="truncate">{user?.email}</span>
                   </span>
                   {user?.phone_number && (
-                    <span className="flex items-center gap-1">
+                    <span className="flex items-center gap-1 shrink-0">
                       <Phone className="h-3.5 w-3.5 text-spice-muted" />
-                      {user?.phone_number}
+                      <span>{user?.phone_number}</span>
                     </span>
                   )}
                   {user?.date_joined && (
-                    <span className="flex items-center gap-1 text-spice-muted">
+                    <span className="flex items-center gap-1 text-spice-muted shrink-0">
                       <Calendar className="h-3.5 w-3.5" />
-                      Member since {new Date(user.date_joined).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })}
+                      <span>Member since {new Date(user.date_joined).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })}</span>
                     </span>
                   )}
                 </div>
@@ -449,7 +449,7 @@ export default function AccountPage() {
         )}
 
         {/* Navigation Tabs */}
-        <div className="flex border-b border-spice-borderSubtle mb-8 gap-2 sm:gap-6 overflow-x-auto no-scrollbar">
+        <div className="w-full max-w-full flex border-b border-spice-borderSubtle mb-8 gap-2 sm:gap-6 overflow-x-auto no-scrollbar">
           <button
             type="button"
             onClick={() => setActiveTab('profile')}
