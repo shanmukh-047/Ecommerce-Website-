@@ -81,7 +81,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
 # Payment Gateway Configuration Validation (Phase 3.5 & Production Hardening)
-ENABLE_RAZORPAY = os.getenv("ENABLE_RAZORPAY", "False").lower() in ("true", "1", "yes")
+ENABLE_RAZORPAY = os.getenv("ENABLE_RAZORPAY", "True").lower() in ("true", "1", "yes")
 
 razorpay_key_id = os.getenv("RAZORPAY_KEY_ID", RAZORPAY_KEY_ID)
 razorpay_key_secret = os.getenv("RAZORPAY_KEY_SECRET", RAZORPAY_KEY_SECRET)
