@@ -19,7 +19,7 @@ services:
       - key: DJANGO_SETTINGS_MODULE
         value: config.settings.production
       - key: DJANGO_SECRET_KEY
-        generateValue: true
+        sync: false
       - key: DATABASE_URL
         sync: false
       - key: DJANGO_ALLOWED_HOSTS

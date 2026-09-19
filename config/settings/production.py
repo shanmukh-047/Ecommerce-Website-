@@ -12,12 +12,14 @@ from .base import *
 # Production must NEVER run in debug mode
 DEBUG = False
 
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+raw_secret_key = os.getenv("DJANGO_SECRET_KEY") or os.getenv("SECRET_KEY")
+SECRET_KEY = raw_secret_key.strip().strip("'\"") if raw_secret_key else None
 if not SECRET_KEY or len(SECRET_KEY) < 50:
     raise RuntimeError(
         "CRITICAL SECURITY CONFIGURATION ERROR: DJANGO_SECRET_KEY must be set to "
         "a cryptographically secure string (minimum 50 characters) in production."
     )
+SIMPLE_JWT["SIGNING_KEY"] = SECRET_KEY
 
 allowed_hosts_env = os.getenv(
     "DJANGO_ALLOWED_HOSTS",
@@ -81,7 +83,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
 # Payment Gateway Configuration Validation (Phase 3.5 & Production Hardening)
-ENABLE_RAZORPAY = os.getenv("ENABLE_RAZORPAY", "True").lower() in ("true", "1", "yes")
+ENABLE_RAZORPAY = os.getenv("ENABLE_RAZORPAY", "False").lower() in ("true", "1", "yes")
 
 razorpay_key_id = os.getenv("RAZORPAY_KEY_ID", RAZORPAY_KEY_ID)
 razorpay_key_secret = os.getenv("RAZORPAY_KEY_SECRET", RAZORPAY_KEY_SECRET)

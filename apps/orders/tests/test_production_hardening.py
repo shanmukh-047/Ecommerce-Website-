@@ -192,6 +192,7 @@ class ProductionSettingsFailFastTests(TestCase):
             "DJANGO_SECRET_KEY": "a" * 60,
             "DJANGO_ALLOWED_HOSTS": "bharathmasala.com",
             "DATABASE_URL": "postgres://user:pass@localhost:5432/db",
+            "ENABLE_RAZORPAY": "true",
             "RAZORPAY_KEY_ID": "rzp_test_placeholder",
             "RAZORPAY_KEY_SECRET": "test_secret_placeholder",
             "RAZORPAY_WEBHOOK_SECRET": "test_webhook_secret",
@@ -202,3 +203,55 @@ class ProductionSettingsFailFastTests(TestCase):
 
                 importlib.reload(config.settings.production)
             self.assertIn("RAZORPAY_KEY_ID", str(cm.exception))
+
+    def test_production_settings_rejects_secret_key_under_50_chars(self):
+        """A 44-character secret (such as Render's 32-byte generator) must be rejected."""
+        import importlib
+        import os
+
+        env_overrides = {
+            "DJANGO_SECRET_KEY": "a" * 44,
+            "DATABASE_URL": "postgres://user:pass@localhost:5432/db",
+            "ENABLE_RAZORPAY": "false",
+        }
+        with patch.dict(os.environ, env_overrides):
+            with self.assertRaises(RuntimeError) as cm:
+                import config.settings.production
+
+                importlib.reload(config.settings.production)
+            self.assertIn("DJANGO_SECRET_KEY", str(cm.exception))
+
+    def test_production_settings_accepts_secret_key_with_whitespace_and_quotes(self):
+        """A 60-character secret wrapped in quotes or whitespace must be parsed cleanly."""
+        import importlib
+        import os
+
+        valid_raw = f'  "{ "b" * 60 }"  '
+        env_overrides = {
+            "DJANGO_SECRET_KEY": valid_raw,
+            "DATABASE_URL": "postgres://user:pass@localhost:5432/db",
+            "ENABLE_RAZORPAY": "false",
+        }
+        with patch.dict(os.environ, env_overrides):
+            import config.settings.production
+
+            importlib.reload(config.settings.production)
+            self.assertEqual(config.settings.production.SECRET_KEY, "b" * 60)
+            self.assertEqual(config.settings.production.SIMPLE_JWT["SIGNING_KEY"], "b" * 60)
+
+    def test_production_settings_accepts_secret_key_under_generic_secret_key_env(self):
+        """SECRET_KEY environment variable is accepted if DJANGO_SECRET_KEY is absent."""
+        import importlib
+        import os
+
+        env_overrides = {
+            "DJANGO_SECRET_KEY": "",
+            "SECRET_KEY": "c" * 55,
+            "DATABASE_URL": "postgres://user:pass@localhost:5432/db",
+            "ENABLE_RAZORPAY": "false",
+        }
+        with patch.dict(os.environ, env_overrides):
+            import config.settings.production
+
+            importlib.reload(config.settings.production)
+            self.assertEqual(config.settings.production.SECRET_KEY, "c" * 55)
