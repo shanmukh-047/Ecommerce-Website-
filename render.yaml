@@ -1,14 +1,7 @@
 # ==============================================================================
 # BHARATH MASALA PRODUCTS — RENDER BLUEPRINT (render.yaml)
-# Unified production deployment: PostgreSQL, Django REST API, and Next.js SPA
+# 100% Free Tier Deployment (No Credit Card / No Paid Plan Required)
 # ==============================================================================
-databases:
-  - name: bharath-masala-db
-    databaseName: bharath_masala
-    user: bmp_user
-    plan: starter
-    postgresMajorVersion: 16
-
 services:
   # ---------------------------------------------------------------------------
   # 1. Django REST Backend Web Service (Python / Gunicorn / WhiteNoise)
@@ -16,7 +9,7 @@ services:
   - type: web
     name: bharath-masala-api
     runtime: python
-    plan: starter
+    plan: free
     buildCommand: ./build.sh
     startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --threads 4 --access-logfile - --error-logfile -
     healthCheckPath: /health/
@@ -28,15 +21,13 @@ services:
       - key: DJANGO_SECRET_KEY
         generateValue: true
       - key: DATABASE_URL
-        fromDatabase:
-          name: bharath-masala-db
-          property: connectionString
+        sync: false
       - key: DJANGO_ALLOWED_HOSTS
-        value: bharathmasala.com,www.bharathmasala.com,.onrender.com,localhost,127.0.0.1
+        value: bharathmasala.com,www.bharathmasala.com,.onrender.com,.koyeb.app,.vercel.app,localhost,127.0.0.1
       - key: CORS_ALLOWED_ORIGINS
         value: https://bharathmasala.com,https://www.bharathmasala.com
       - key: CSRF_TRUSTED_ORIGINS
-        value: https://bharathmasala.com,https://www.bharathmasala.com
+        value: https://bharathmasala.com,https://www.bharathmasala.com,https://*.vercel.app,https://*.onrender.com
       - key: SECURE_SSL_REDIRECT
         value: "true"
       - key: ENABLE_RAZORPAY
@@ -51,18 +42,15 @@ services:
         value: INFO
 
   # ---------------------------------------------------------------------------
-  # 2. Next.js Storefront SPA (Node.js / React 18 / Custom Domain)
+  # 2. Next.js Storefront SPA (Node.js / React 18)
   # ---------------------------------------------------------------------------
   - type: web
     name: bharath-masala-frontend
     runtime: node
-    plan: starter
+    plan: free
     rootDir: frontend
     buildCommand: npm run build
     startCommand: npm run start
-    domains:
-      - bharathmasala.com
-      - www.bharathmasala.com
     envVars:
       - key: NODE_ENV
         value: production

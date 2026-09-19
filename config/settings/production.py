@@ -21,7 +21,7 @@ if not SECRET_KEY or len(SECRET_KEY) < 50:
 
 allowed_hosts_env = os.getenv(
     "DJANGO_ALLOWED_HOSTS",
-    "bharathmasala.com,www.bharathmasala.com,.onrender.com,localhost,127.0.0.1",
+    "bharathmasala.com,www.bharathmasala.com,.onrender.com,.koyeb.app,.vercel.app,localhost,127.0.0.1",
 )
 ALLOWED_HOSTS = [h.strip() for h in allowed_hosts_env.split(",") if h.strip()]
 if "*" in ALLOWED_HOSTS:
@@ -51,10 +51,15 @@ cors_origins_env = os.getenv(
     "https://bharathmasala.com,https://www.bharathmasala.com",
 )
 CORS_ALLOWED_ORIGINS = [o.strip() for o in cors_origins_env.split(",") if o.strip()]
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.vercel\.app$",
+    r"^https://.*\.onrender\.com$",
+    r"^https://.*\.koyeb\.app$",
+]
 
 csrf_origins_env = os.getenv(
     "CSRF_TRUSTED_ORIGINS",
-    "https://bharathmasala.com,https://www.bharathmasala.com",
+    "https://bharathmasala.com,https://www.bharathmasala.com,https://*.vercel.app,https://*.onrender.com,https://*.koyeb.app",
 )
 CSRF_TRUSTED_ORIGINS = [o.strip() for o in csrf_origins_env.split(",") if o.strip()]
 
@@ -76,7 +81,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
 # Payment Gateway Configuration Validation (Phase 3.5 & Production Hardening)
-ENABLE_RAZORPAY = os.getenv("ENABLE_RAZORPAY", "True").lower() in ("true", "1", "yes")
+ENABLE_RAZORPAY = os.getenv("ENABLE_RAZORPAY", "False").lower() in ("true", "1", "yes")
 
 razorpay_key_id = os.getenv("RAZORPAY_KEY_ID", RAZORPAY_KEY_ID)
 razorpay_key_secret = os.getenv("RAZORPAY_KEY_SECRET", RAZORPAY_KEY_SECRET)
