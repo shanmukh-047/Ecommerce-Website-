@@ -32,7 +32,10 @@ const nextConfig = {
       return [];
     }
 
-    const cleanBackend = backendTarget.replace(/\/+$/, '');
+    let cleanBackend = backendTarget.replace(/\/+$/, '');
+    if (!/^https?:\/\//i.test(cleanBackend)) {
+      cleanBackend = `http://${cleanBackend}`;
+    }
     const serverRoot = cleanBackend.replace(/\/api$/, '');
 
     return {
