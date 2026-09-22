@@ -23,12 +23,19 @@ const nextConfig = {
   },
   skipTrailingSlashRedirect: true,
   async rewrites() {
+    // BACKEND_INTERNAL_URL must be set in Vercel dashboard for production.
+    // It should be the bare Render URL, e.g. https://bharath-masala-api.onrender.com
     const backendTarget =
       process.env.BACKEND_INTERNAL_URL ||
-      process.env.NEXT_PUBLIC_API_BASE_URL ||
-      (process.env.NODE_ENV === 'production' ? '' : 'http://127.0.0.1:8000');
+      (process.env.NODE_ENV !== 'production'
+        ? 'http://127.0.0.1:8000'
+        : null);
 
     if (!backendTarget) {
+      console.error(
+        '[next.config.js] BACKEND_INTERNAL_URL is not set! ' +
+          'API proxying is DISABLED. Set this env var in the Vercel dashboard.'
+      );
       return [];
     }
 
