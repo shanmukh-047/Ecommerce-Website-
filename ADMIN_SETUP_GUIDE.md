@@ -38,15 +38,56 @@ If a staff member has already created an account via the customer registration s
 python manage.py shell --settings=config.settings.development
 ```
 ```python
-from apps.accounts.models import User, UserRole
+from apps.accounts.models import User, Role
 
 user = User.objects.get(email="staff.member@bharatmasala.com")
 user.is_staff = True
-user.role = UserRole.STAFF   # or UserRole.MANAGER
+user.role = Role.STAFF   # or Role.MANAGER
 user.save()
 
 print(f"User {user.email} promoted to staff: is_staff={user.is_staff}, role={user.role}")
 ```
+
+### 2.3 Method C: One-Time Bootstrap for Production (Render Free Tier)
+Because Render Free tier disables the interactive Web Shell, a dedicated, secure one-time bootstrap management command is built into the deployment pipeline (`build.sh`). It only executes when explicitly unlocked.
+
+#### Step 1: Configure Environment Variables in Render Dashboard
+Navigate to **Render Dashboard** &rarr; **`bharath-masala-api`** &rarr; **Environment**:
+Add the following variables:
+| Key | Value | Description |
+| :--- | :--- | :--- |
+| `BOOTSTRAP_ADMIN` | `true` | **Execution Gate**: Must be exactly `true`. Default is locked. |
+| `ADMIN_EMAIL` | `admin@bharathmasala.com` | Target superuser email address. |
+| `ADMIN_PASSWORD` | `YourComplexPassword123!` | Strong passphrase (minimum 8 characters, complex). |
+| `ADMIN_PHONE` | `+919876543210` *(optional)* | Valid Indian mobile phone number (defaults to `+919876543210`). |
+
+#### Step 2: Trigger a Deployment
+1. Go to the **Deploy** dropdown in Render &rarr; Click **Clear build cache & deploy** (or push a commit).
+2. During the build, `build.sh` automatically checks for `BOOTSTRAP_ADMIN=true` after applying database migrations and runs:
+   ```bash
+   python manage.py bootstrap_admin --settings=config.settings.production
+   ```
+3. The build log will confirm:
+   ```text
+   ==> BHARATH MASALA: ADMIN BOOTSTRAP COMPLETE
+   ==> Status:      Created new Super Administrator account
+   ==> Account:     admin@bharathmasala.com
+   ==> Role:        Super Administrator
+   ==> Flags:       is_staff=True, is_superuser=True, is_active=True
+   ```
+   *(Note: The plaintext password is never logged or printed).*
+
+#### Step 3: Verify Admin Login
+Log in immediately using your new credentials at:
+- Frontend Proxy: `https://ecommerce-website-pearl-pi.vercel.app/admin/` or `https://bharathmasala.com/admin/`
+- Direct Backend: `https://bharath-masala-api.onrender.com/admin/`
+
+#### Step 4: CRITICAL — Remove Credentials from Render
+Immediately after successful login:
+1. Return to **Render Dashboard** &rarr; **`bharath-masala-api`** &rarr; **Environment**.
+2. **DELETE** the `ADMIN_PASSWORD` environment variable.
+3. Set `BOOTSTRAP_ADMIN=false` (or **DELETE** it).
+4. Save changes. Subsequent builds will skip the bootstrap step and the command will refuse execution if invoked.
 
 ---
 
